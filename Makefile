@@ -75,7 +75,7 @@ test: deps
 
 .PHONY: lint
 ## Lint
-lint: deps
+lint: devel-deps
 	go vet ./...
 	golint -set_exit_status ./...
 
