@@ -2,6 +2,7 @@
 
 # pa
 
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![Version](https://img.shields.io/github/release/ebc-2in2crc/pa.svg?label=version)](https://img.shields.io/github/release/ebc-2in2crc/pa.svg?label=version)
 
 pa は [Pixela](https://pixe.la/) の CLI ツールです。
