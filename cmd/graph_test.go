@@ -248,6 +248,10 @@ func TestGraphGetSVGInput(t *testing.T) {
 	}
 
 	for _, p := range params {
+		pixelaClient.graph = &pixelaGraphMock{
+			err: nil,
+			svg: "SVG",
+		}
 		cmd := NewCmdRoot()
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
