@@ -2,6 +2,7 @@
 
 # pa
 
+[![Build Status](https://travis-ci.com/ebc-2in2crc/pa.svg?branch=master)](https://travis-ci.com/ebc-2in2crc/pa)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ebc-2in2crc/pa)](https://goreportcard.com/report/github.com/ebc-2in2crc/pa)
 [![Version](https://img.shields.io/github/release/ebc-2in2crc/pa.svg?label=version)](https://img.shields.io/github/release/ebc-2in2crc/pa.svg?label=version)
