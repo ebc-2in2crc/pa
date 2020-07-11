@@ -11,6 +11,8 @@ pa は [Pixela](https://pixe.la/) の CLI ツールです。
 
 pa は「ぱ」と読みます。
 
+![demo](https://user-images.githubusercontent.com/1122547/87226990-a959bb00-c3d2-11ea-96ab-f9b4015a7ed2.gif)
+
 ## Description
 
 pa は [Pixela](https://pixe.la/) の CLI ツールです。

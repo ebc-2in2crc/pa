@@ -9,6 +9,8 @@
 
 pa ([pʌ]) is a CLI tool for Pixela (pixe.la).
 
+![demo](https://user-images.githubusercontent.com/1122547/87226990-a959bb00-c3d2-11ea-96ab-f9b4015a7ed2.gif)
+
 ## Description
 
 pa ([pʌ]) is a CLI tool for Pixela (pixe.la).
