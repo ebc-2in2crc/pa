@@ -7,13 +7,13 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/ebc-2in2crc/pa)](https://goreportcard.com/report/github.com/ebc-2in2crc/pa)
 [![Version](https://img.shields.io/github/release/ebc-2in2crc/pa.svg?label=version)](https://img.shields.io/github/release/ebc-2in2crc/pa.svg?label=version)
 
-pa ([pʌ]) is a CLI tool for Pixela (pixe.la).
+pa ([pʌ]) is a CLI tool for [Pixela](https://pixe.la/).
 
 ![demo](https://user-images.githubusercontent.com/1122547/87226990-a959bb00-c3d2-11ea-96ab-f9b4015a7ed2.gif)
 
 ## Description
 
-pa ([pʌ]) is a CLI tool for Pixela (pixe.la).
+pa ([pʌ]) is a CLI tool for [Pixela](https://pixe.la/).
 
 pa provides a unified command to manage Pixela's services.
 
