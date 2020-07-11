@@ -2,6 +2,8 @@
 
 # pa
 
+[![Version](https://img.shields.io/github/release/ebc-2in2crc/pa.svg?label=version)](https://img.shields.io/github/release/ebc-2in2crc/pa.svg?label=version)
+
 pa は [Pixela](https://pixe.la/) の CLI ツールです。
 
 pa は「ぱ」と読みます。
