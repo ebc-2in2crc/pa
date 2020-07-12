@@ -176,6 +176,23 @@ $ export PA_TOKEN=thisissecret
 $ pa user create --agree-terms-of-service --not-minor
 ```
 
+You can also specify the Pixela username and Pixela token with the config files.
+
+```
+$ cat ~/.pa
+username = "yourname"
+token = "thisissecret"
+$ pa user create --agree-terms-of-service --not-minor
+```
+
+`pa` uses the following precedence order.
+Each item takes precedence over the item below it:
+
+- flag
+- environment variable
+- config file in current directory
+- config file in home directory
+
 ### Generating shell completions
 
 You can generate zsh, bash, fish and PowerShell completions and use it.

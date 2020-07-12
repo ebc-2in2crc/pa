@@ -178,6 +178,23 @@ $ export PA_TOKEN=thisissecret
 $ pa user create --agree-terms-of-service --not-minor
 ```
 
+Pixela のユーザー名とトークンは設定ファイルで指定することもできます。
+
+```
+$ cat ~/.pa
+username = "yourname"
+token = "thisissecret"
+$ pa user create --agree-terms-of-service --not-minor
+```
+
+pa は次の優先順位でユーザー名とトークンを使用します。
+それぞれの項目はその下の項目よりも優先されます。
+
+- フラグ
+- 環境変数
+- カレントディレクトリの設定ファイル
+- ホームディレクトリの設定ファイル
+
 ### シェルの補完スクリプトの生成
 
 Zsh, Bash, Fish, PowerShell の補完スクリプトを生成して利用できます。

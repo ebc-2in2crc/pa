@@ -33,6 +33,7 @@ func NewCmdRoot() *cobra.Command {
 
 	viper.AutomaticEnv()
 	viper.SetEnvPrefix("pa")
+	cmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.pa)")
 	cmd.PersistentFlags().StringVarP(&globalOptions.username, "username", "u", "", "Pixela user name")
 	viper.BindPFlag("username", cmd.PersistentFlags().Lookup("username"))
 	cmd.PersistentFlags().StringVarP(&globalOptions.token, "token", "t", "", "Pixela user token")
@@ -77,14 +78,22 @@ func initConfig() {
 			os.Exit(1)
 		}
 
+		wd, err := os.Getwd()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		viper.AddConfigPath(wd)
 		viper.AddConfigPath(home)
 		viper.SetConfigName(".pa")
+		viper.SetConfigType("toml")
 	}
 
 	viper.AutomaticEnv()
 
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	if err := viper.ReadInConfig(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
 
