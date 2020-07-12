@@ -92,8 +92,10 @@ func initConfig() {
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok == false {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 	}
 }
 
