@@ -46,10 +46,8 @@ func NewCmdRoot() *cobra.Command {
 
 func addSubCommand(cmd *cobra.Command) {
 	cmd.AddCommand(NewCmdUser())
-	cmd.AddCommand(NewCmdChannel())
 	cmd.AddCommand(NewCmdGraph())
 	cmd.AddCommand(NewCmdPixel())
-	cmd.AddCommand(NewCmdNotification())
 	cmd.AddCommand(NewCmdWebhook())
 	cmd.AddCommand(NewCmdCompletion())
 }
