@@ -104,45 +104,6 @@ Pixel API sub commands.
 - increment
 - update
 
-### Channel API
-
-```
-$ pa channel create \
-    --id=your-channel-id \
-    --name=your-channel-name \
-    --type=slack \
-    --slack-username=your-slack-user \
-    --slack-channel-name=your-slack-channel \
-    --slack-url=your-slack-url
-```
-
-Channel API sub commands.
-
-- create
-- delete
-- get
-- update
-
-### Notification API
-
-```
-$ pa notification create \
-    --id=your-notification-id \
-    --name=your-notification-name \
-    --channel-id=your-channel-id \
-    --condition=">" \
-    --target=quantity \
-    --threshold=5 \
-    --graph-id=your-graph-id
-```
-
-Notification API sub commands.
-
-- create
-- delete
-- get
-- update
-
 ### Webhook
 
 ```
