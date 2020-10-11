@@ -20,6 +20,5 @@ require (
 	github.com/tcnksm/ghr v0.13.0 // indirect
 	golang.org/x/sys v0.0.0-20200625212154-ddb9806d33ae // indirect
 	golang.org/x/text v0.3.3 // indirect
-	golang.org/x/tools v0.0.0-20200711155855-7342f9734a7d // indirect
 	gopkg.in/ini.v1 v1.57.0 // indirect
 )
