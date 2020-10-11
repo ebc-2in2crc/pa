@@ -29,12 +29,16 @@ deps:
 .PHONY: devel-deps
 ## Install dependencies for develop
 devel-deps: deps
+	sh -c '\
+	tmpdir=$$(mktemp -d); \
+	cd $$tmpdir; \
 	$(GOGET) \
-	golang.org/x/tools/cmd/goimports \
-	golang.org/x/lint/golint \
-	github.com/Songmu/make2help/cmd/make2help \
-	github.com/mitchellh/gox \
-	github.com/tcnksm/ghr
+		golang.org/x/tools/cmd/goimports \
+		golang.org/x/lint/golint \
+		github.com/Songmu/make2help/cmd/make2help \
+		github.com/mitchellh/gox \
+		github.com/tcnksm/ghr; \
+	rm -rf $$tmpdir'
 
 .PHONY: build
 ## Build binaries
