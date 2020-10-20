@@ -14,16 +14,22 @@ import (
 var ErrNeglect = errors.New("neglect")
 
 type pixelaClientFactory struct {
-	user         pixelaUser
-	graph        pixelaGraph
-	pixel        pixelaPixel
-	webhook      pixelaWebhook
+	user    pixelaUser
+	profile pixelaUserProfile
+	graph   pixelaGraph
+	pixel   pixelaPixel
+	webhook pixelaWebhook
 }
 
 type pixelaUser interface {
 	Create(input *pixela.UserCreateInput) (*pixela.Result, error)
 	Update(input *pixela.UserUpdateInput) (*pixela.Result, error)
 	Delete() (*pixela.Result, error)
+}
+
+type pixelaUserProfile interface {
+	Update(input *pixela.UserProfileUpdateInput) (*pixela.Result, error)
+	URL() string
 }
 
 type pixelaGraph interface {
@@ -60,6 +66,13 @@ func (p *pixelaClientFactory) User() pixelaUser {
 		return p.user
 	}
 	return pixela.New(getUsername(), getToken()).User()
+}
+
+func (p *pixelaClientFactory) UserProfile() pixelaUserProfile {
+	if p.profile != nil {
+		return p.profile
+	}
+	return pixela.New(getUsername(), getToken()).UserProfile()
 }
 
 func (p *pixelaClientFactory) Graph() pixelaGraph {

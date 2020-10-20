@@ -45,6 +45,24 @@ User API sub commands.
 - delete
 - update
 
+### User Profile API
+
+```
+$ pa profile update \
+    --display-name=display-name \
+    --gravatar-icon-email=gravatar-icon-email \
+    --title=title \
+    --timezone=Asia/Tokyo \
+    --about-url=about-URL \
+    --contribute-urls=url \
+    --pinned-graph-id=pinned-graph-id
+```
+
+User Profile API sub commands.
+
+- update
+- get
+
 ### Graph API
 
 ```

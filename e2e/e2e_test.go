@@ -22,6 +22,8 @@ If you run E2E test, Set below environment variables.
 	testE2EUserCreate(t)
 	testE2EUserUpdate(t)
 
+	testE2EUserProfileUpdate(t)
+
 	testE2EGraphCreate(t)
 	testE2EGraphGetAll(t)
 	testE2EGraphGetSVG(t)
