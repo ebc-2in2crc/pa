@@ -17,8 +17,6 @@ type pixelaClientFactory struct {
 	user         pixelaUser
 	graph        pixelaGraph
 	pixel        pixelaPixel
-	channel      pixelaChannel
-	notification pixelaNotification
 	webhook      pixelaWebhook
 }
 
@@ -50,20 +48,6 @@ type pixelaPixel interface {
 	Delete(input *pixela.PixelDeleteInput) (*pixela.Result, error)
 }
 
-type pixelaChannel interface {
-	Create(input *pixela.ChannelCreateInput) (*pixela.Result, error)
-	GetAll() (*pixela.ChannelDefinitions, error)
-	Update(input *pixela.ChannelUpdateInput) (*pixela.Result, error)
-	Delete(input *pixela.ChannelDeleteInput) (*pixela.Result, error)
-}
-
-type pixelaNotification interface {
-	Create(input *pixela.NotificationCreateInput) (*pixela.Result, error)
-	GetAll(input *pixela.NotificationGetAllInput) (*pixela.NotificationDefinitions, error)
-	Update(input *pixela.NotificationUpdateInput) (*pixela.Result, error)
-	Delete(input *pixela.NotificationDeleteInput) (*pixela.Result, error)
-}
-
 type pixelaWebhook interface {
 	Create(input *pixela.WebhookCreateInput) (*pixela.WebhookCreateResult, error)
 	GetAll() (*pixela.WebhookDefinitions, error)
@@ -90,20 +74,6 @@ func (p *pixelaClientFactory) Pixel() pixelaPixel {
 		return p.pixel
 	}
 	return pixela.New(getUsername(), getToken()).Pixel()
-}
-
-func (p *pixelaClientFactory) Channel() pixelaChannel {
-	if p.channel != nil {
-		return p.channel
-	}
-	return pixela.New(getUsername(), getToken()).Channel()
-}
-
-func (p *pixelaClientFactory) Notification() pixelaNotification {
-	if p.notification != nil {
-		return p.notification
-	}
-	return pixela.New(getUsername(), getToken()).Notification()
 }
 
 func (p *pixelaClientFactory) Webhook() pixelaWebhook {
