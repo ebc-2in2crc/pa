@@ -84,7 +84,7 @@ func createUserProfileUpdateInput() *pixela.UserProfileUpdateInput {
 func NewCmdUserProfileURL() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get",
-		Short: "get User Profile page URL",
+		Short: "Get User Profile page URL",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			url := pixelaClient.UserProfile().URL()
