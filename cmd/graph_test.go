@@ -156,9 +156,6 @@ func TestGraphCreate(t *testing.T) {
 	}
 }
 
-func _TestGraphGetAllInput(t *testing.T) {
-}
-
 func TestGraphGetAll(t *testing.T) {
 	defer func() { pixelaClient.graph = nil }()
 	params := []struct {
@@ -343,20 +340,6 @@ func TestGraphURL(t *testing.T) {
 
 	assert.NoError(t, err)
 	expected := pixelaClient.graph.URL(nil) + "\n"
-	assert.Equal(t, expected, buffer.String())
-}
-
-func TestGraphGraphsURL(t *testing.T) {
-	defer func() { pixelaClient.graph = nil }()
-	pixelaClient.graph = &pixelaGraphMock{}
-	c := NewCmdGraphGraphsURL()
-	buffer := bytes.NewBuffer([]byte{})
-	c.SetOut(buffer)
-
-	err := c.RunE(c, []string{})
-
-	assert.NoError(t, err)
-	expected := pixelaClient.graph.GraphsURL() + "\n"
 	assert.Equal(t, expected, buffer.String())
 }
 

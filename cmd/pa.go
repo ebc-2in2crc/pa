@@ -37,7 +37,6 @@ type pixelaGraph interface {
 	GetAll() (*pixela.GraphDefinitions, error)
 	GetSVG(input *pixela.GraphGetSVGInput) (string, error)
 	URL(input *pixela.GraphURLInput) string
-	GraphsURL() string
 	Stats(input *pixela.GraphStatsInput) (*pixela.Stats, error)
 	Update(input *pixela.GraphUpdateInput) (*pixela.Result, error)
 	Delete(input *pixela.GraphDeleteInput) (*pixela.Result, error)

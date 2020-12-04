@@ -43,7 +43,6 @@ func NewCmdGraph() *cobra.Command {
 	cmd.AddCommand(NewCmdGraphGetAll())
 	cmd.AddCommand(NewCmdGraphGetSVG())
 	cmd.AddCommand(NewCmdGraphURL())
-	cmd.AddCommand(NewCmdGraphGraphsURL())
 	cmd.AddCommand(NewCmdGraphStats())
 	cmd.AddCommand(NewCmdGraphUpdate())
 	cmd.AddCommand(NewCmdGraphDelete())
@@ -208,23 +207,6 @@ func createGraphURLInput() *pixela.GraphURLInput {
 		ID:   getStringPtr(graphOptions.ID),
 		Mode: getStringPtr(graphOptions.Mode),
 	}
-}
-
-// NewCmdGraphGraphsURL creates a graphs URL command.
-func NewCmdGraphGraphsURL() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "list",
-		Short: "get Graph List page URL",
-		Args:  cobra.NoArgs,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			url := pixelaClient.Graph().GraphsURL()
-			cmd.Printf("%s\n", url)
-
-			return nil
-		},
-	}
-
-	return cmd
 }
 
 // NewCmdGraphStats creates a graphs stats command.
