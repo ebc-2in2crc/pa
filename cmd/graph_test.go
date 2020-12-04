@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"io/ioutil"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -639,11 +640,12 @@ func TestGraphPixelsInput(t *testing.T) {
 		expected    pixela.GraphGetPixelDatesInput
 	}{
 		{
-			commandline: "graph pixels --id=graph-id --from=20200101 --to=20200130",
+			commandline: "graph pixels --id=graph-id --from=20200101 --to=20200130 --with-body",
 			expected: pixela.GraphGetPixelDatesInput{
-				ID:   pixela.String("graph-id"),
-				From: pixela.String("20200101"),
-				To:   pixela.String("20200130"),
+				ID:       pixela.String("graph-id"),
+				From:     pixela.String("20200101"),
+				To:       pixela.String("20200130"),
+				WithBody: pixela.Bool(true),
 			},
 		},
 		{
@@ -664,12 +666,14 @@ func TestGraphPixelsInput(t *testing.T) {
 		assert.EqualValues(t, pixela.StringValue(p.expected.ID), pixela.StringValue(input.ID), "GraphID")
 		assert.EqualValues(t, pixela.StringValue(p.expected.From), pixela.StringValue(input.From), "From")
 		assert.EqualValues(t, pixela.StringValue(p.expected.To), pixela.StringValue(input.To), "To")
+		assert.EqualValues(t, pixela.BoolValue(p.expected.WithBody), pixela.BoolValue(input.WithBody), "WithBody")
 	}
 }
 
 func TestGraphPixels(t *testing.T) {
 	defer func() { pixelaClient.graph = nil }()
 	params := []struct {
+		withBody bool
 		pixels   pixela.Pixels
 		occur    error
 		expected string
@@ -684,6 +688,24 @@ func TestGraphPixels(t *testing.T) {
 			},
 			occur:    nil,
 			expected: `{"pixels":["20200101"]}` + "\n",
+		},
+		{
+			withBody: true,
+			pixels: pixela.Pixels{
+				Result: pixela.Result{
+					Message:   "Success.",
+					IsSuccess: true,
+				},
+				Pixels: []pixela.PixelWithBody{
+					{
+						Date:         "20200101",
+						Quantity:     "5",
+						OptionalData: "OD",
+					},
+				},
+			},
+			occur:    nil,
+			expected: `{"pixels":[{"date":"20200101","quantity":"5","optionalData":"OD"}]}` + "\n",
 		},
 		{
 			pixels: pixela.Pixels{
@@ -709,6 +731,7 @@ func TestGraphPixels(t *testing.T) {
 		c := NewCmdGraphGetPixelDates()
 		buffer := bytes.NewBuffer([]byte{})
 		c.SetOut(buffer)
+		c.Flags().Set("with-body", strconv.FormatBool(v.withBody))
 
 		err := c.RunE(c, []string{})
 

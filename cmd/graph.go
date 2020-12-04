@@ -28,6 +28,7 @@ var graphOptions = &struct {
 	DeleteMe            bool
 	From                string
 	To                  string
+	WithBody            bool
 }{}
 
 // NewCmdGraph creates a graph command.
@@ -124,7 +125,23 @@ func NewCmdGraphGetAll() *cobra.Command {
 				return ErrNeglect
 			}
 
-			b, err := json.Marshal(&graphDefinitions{Graphs: definitions.Graphs})
+			defs := make([]graphDefinition, len(definitions.Graphs))
+			for i, v := range definitions.Graphs {
+				defs[i] = graphDefinition{
+					ID:                  v.ID,
+					Name:                v.Name,
+					Unit:                v.Unit,
+					Type:                v.Type,
+					Color:               v.Color,
+					TimeZone:            v.TimeZone,
+					PurgeCacheURLs:      v.PurgeCacheURLs,
+					SelfSufficient:      v.SelfSufficient,
+					IsSecret:            v.IsSecret,
+					PublishOptionalData: v.PublishOptionalData,
+				}
+			}
+
+			b, err := json.Marshal(&graphDefinitions{Graphs: defs})
 			if err != nil {
 				return fmt.Errorf("marshal graph get all definitions failed: %w", err)
 			}
@@ -138,7 +155,20 @@ func NewCmdGraphGetAll() *cobra.Command {
 }
 
 type graphDefinitions struct {
-	Graphs []pixela.GraphDefinition `json:"graphs"`
+	Graphs []graphDefinition `json:"graphs"`
+}
+
+type graphDefinition struct {
+	ID                  string   `json:"id"`
+	Name                string   `json:"name"`
+	Unit                string   `json:"unit"`
+	Type                string   `json:"type"`
+	Color               string   `json:"color"`
+	TimeZone            string   `json:"timezone"`
+	PurgeCacheURLs      []string `json:"purgeCacheURLs"`
+	SelfSufficient      string   `json:"selfSufficient"`
+	IsSecret            bool     `json:"isSecret"`
+	PublishOptionalData bool     `json:"publishOptionalData"`
 }
 
 // NewCmdGraphGetSVG creates a get graph svg command.
@@ -400,15 +430,15 @@ func NewCmdGraphGetPixelDates() *cobra.Command {
 			if dates.IsSuccess == false {
 				s, err := marshalResult(&dates.Result)
 				if err != nil {
-					return fmt.Errorf("marshal graph get pixel dates result failed: %w", err)
+					return fmt.Errorf("marshalPixels graph get pixel dates result failed: %w", err)
 				}
 				cmd.Printf("%s\n", s)
 				return ErrNeglect
 			}
 
-			b, err := json.Marshal(&pixels{Pixels: dates.Pixels})
+			b, err := marshalPixels(dates.Pixels, graphOptions.WithBody)
 			if err != nil {
-				return fmt.Errorf("marshal graph get pixel dates failed: %w", err)
+				return fmt.Errorf("marshalPixels graph get pixel dates failed: %w", err)
 			}
 			cmd.Printf("%s\n", string(b))
 
@@ -420,16 +450,46 @@ func NewCmdGraphGetPixelDates() *cobra.Command {
 	cmd.MarkFlagRequired("id")
 	cmd.Flags().StringVar(&graphOptions.From, "from", "", "The start position of the period")
 	cmd.Flags().StringVar(&graphOptions.To, "to", "", "The end position of the period")
+	cmd.Flags().BoolVar(&graphOptions.WithBody, "with-body", false, "Get all the information the Pixel has")
 
 	return cmd
 }
 
 func createGraphGetPixelDatesInput() *pixela.GraphGetPixelDatesInput {
 	return &pixela.GraphGetPixelDatesInput{
-		ID:   getStringPtr(graphOptions.ID),
-		From: getStringPtr(graphOptions.From),
-		To:   getStringPtr(graphOptions.To),
+		ID:       getStringPtr(graphOptions.ID),
+		From:     getStringPtr(graphOptions.From),
+		To:       getStringPtr(graphOptions.To),
+		WithBody: getBoolPtr(graphOptions.WithBody),
 	}
+}
+
+func marshalPixels(datePixels interface{}, withBody bool) ([]byte, error) {
+	if withBody {
+		p, ok := datePixels.([]pixela.PixelWithBody)
+		if !ok {
+			return []byte{}, fmt.Errorf("type assertion failed: %T", datePixels)
+		}
+		b, err := json.Marshal(&pixelsWithBody{Pixels: p})
+		if err != nil {
+			return []byte{}, fmt.Errorf("marshal pixels with body failed: %w", err)
+		}
+		return b, nil
+	}
+
+	p, ok := datePixels.([]string)
+	if !ok {
+		return []byte{}, fmt.Errorf("type assertion failed: %T", datePixels)
+	}
+	b, err := json.Marshal(&pixels{Pixels: p})
+	if err != nil {
+		return []byte{}, fmt.Errorf("marshal pixels with body failed: %w", err)
+	}
+	return b, nil
+}
+
+type pixelsWithBody struct {
+	Pixels []pixela.PixelWithBody `json:"pixels"`
 }
 
 type pixels struct {
