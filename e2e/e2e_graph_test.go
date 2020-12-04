@@ -26,7 +26,7 @@ func testE2EGraphCreate(t *testing.T) {
 func testE2EGraphGetAll(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
 	cmd.SetOut(ioutil.Discard)
-	commandline := "graph get"
+	commandline := "graph get-all"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
 

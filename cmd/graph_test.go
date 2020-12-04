@@ -19,6 +19,7 @@ type pixelaGraphMock struct {
 	stats       pixela.Stats
 	pixels      pixela.Pixels
 	definitions pixela.GraphDefinitions
+	definition  pixela.GraphDefinition
 }
 
 func (p *pixelaGraphMock) Create(input *pixela.GraphCreateInput) (*pixela.Result, error) {
@@ -27,6 +28,10 @@ func (p *pixelaGraphMock) Create(input *pixela.GraphCreateInput) (*pixela.Result
 
 func (p *pixelaGraphMock) GetAll() (*pixela.GraphDefinitions, error) {
 	return &p.definitions, p.err
+}
+
+func (p *pixelaGraphMock) Get(input *pixela.GraphGetInput) (*pixela.GraphDefinition, error) {
+	return &p.definition, p.err
 }
 
 func (p *pixelaGraphMock) GetSVG(input *pixela.GraphGetSVGInput) (string, error) {
@@ -212,6 +217,98 @@ func TestGraphGetAll(t *testing.T) {
 			err:         v.occur,
 		}
 		c := NewCmdGraphGetAll()
+		buffer := bytes.NewBuffer([]byte{})
+		c.SetOut(buffer)
+
+		err := c.RunE(c, []string{})
+
+		if v.occur == nil {
+			assert.Equal(t, v.expected, buffer.String())
+		} else {
+			assert.Contains(t, err.Error(), v.expected)
+		}
+	}
+}
+
+func TestGraphGetInput(t *testing.T) {
+	params := []struct {
+		commandline string
+		expected    pixela.GraphGetInput
+	}{
+		{
+			commandline: "graph get --id=graph-id",
+			expected:    pixela.GraphGetInput{ID: pixela.String("graph-id")},
+		},
+		{
+			commandline: "graph get",
+			expected:    pixela.GraphGetInput{},
+		},
+	}
+
+	for _, p := range params {
+		cmd := NewCmdRoot()
+		cmd.SetOut(ioutil.Discard)
+		args := strings.Split(p.commandline, " ")
+		cmd.SetArgs(args)
+		cmd.Execute()
+
+		input := createGraphGetInput()
+
+		assert.EqualValues(t, pixela.StringValue(p.expected.ID), pixela.StringValue(input.ID), "GraphID")
+	}
+}
+
+func TestGraphGet(t *testing.T) {
+	defer func() { pixelaClient.graph = nil }()
+	params := []struct {
+		definition pixela.GraphDefinition
+		occur      error
+		expected   string
+	}{
+		{
+			definition: pixela.GraphDefinition{
+				Result: pixela.Result{
+					Message:   "Success.",
+					IsSuccess: true,
+				},
+				ID:                  "graph-id",
+				Name:                "graph-name",
+				Unit:                "count",
+				Type:                "int",
+				Color:               "ichou",
+				TimeZone:            "Asia/Tokyo",
+				PurgeCacheURLs:      nil,
+				SelfSufficient:      "increment",
+				IsSecret:            true,
+				PublishOptionalData: true,
+			},
+			occur: nil,
+			expected: `{"id":"graph-id","name":"graph-name","unit":"count","type":"int","color":"ichou",` +
+				`"timezone":"Asia/Tokyo","purgeCacheURLs":null,"selfSufficient":"increment","isSecret":true,` +
+				`"publishOptionalData":true}` + "\n",
+		},
+		{
+			definition: pixela.GraphDefinition{
+				Result: pixela.Result{
+					Message:   "User does not exists.",
+					IsSuccess: false,
+				},
+			},
+			occur:    nil,
+			expected: `{"message":"User does not exists.","isSuccess":false}` + "\n",
+		},
+		{
+			occur:    errors.New("some error occur"),
+			expected: `graph get failed:`,
+		},
+	}
+
+	for _, v := range params {
+		pixelaClient.graph = &pixelaGraphMock{
+			definition: v.definition,
+			err:        v.occur,
+		}
+		c := NewCmdGraphGet()
 		buffer := bytes.NewBuffer([]byte{})
 		c.SetOut(buffer)
 

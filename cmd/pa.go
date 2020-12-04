@@ -35,6 +35,7 @@ type pixelaUserProfile interface {
 type pixelaGraph interface {
 	Create(input *pixela.GraphCreateInput) (*pixela.Result, error)
 	GetAll() (*pixela.GraphDefinitions, error)
+	Get(input *pixela.GraphGetInput) (*pixela.GraphDefinition, error)
 	GetSVG(input *pixela.GraphGetSVGInput) (string, error)
 	URL(input *pixela.GraphURLInput) string
 	Stats(input *pixela.GraphStatsInput) (*pixela.Stats, error)

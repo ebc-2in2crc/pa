@@ -42,6 +42,7 @@ func NewCmdGraph() *cobra.Command {
 
 	cmd.AddCommand(NewCmdGraphCreate())
 	cmd.AddCommand(NewCmdGraphGetAll())
+	cmd.AddCommand(NewCmdGraphGet())
 	cmd.AddCommand(NewCmdGraphGetSVG())
 	cmd.AddCommand(NewCmdGraphURL())
 	cmd.AddCommand(NewCmdGraphStats())
@@ -108,7 +109,7 @@ func createGraphCreateInput() *pixela.GraphCreateInput {
 // NewCmdGraphGetAll creates a get all graph command.
 func NewCmdGraphGetAll() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "get",
+		Use:   "get-all",
 		Short: "Get Graph definitions",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -127,18 +128,7 @@ func NewCmdGraphGetAll() *cobra.Command {
 
 			defs := make([]graphDefinition, len(definitions.Graphs))
 			for i, v := range definitions.Graphs {
-				defs[i] = graphDefinition{
-					ID:                  v.ID,
-					Name:                v.Name,
-					Unit:                v.Unit,
-					Type:                v.Type,
-					Color:               v.Color,
-					TimeZone:            v.TimeZone,
-					PurgeCacheURLs:      v.PurgeCacheURLs,
-					SelfSufficient:      v.SelfSufficient,
-					IsSecret:            v.IsSecret,
-					PublishOptionalData: v.PublishOptionalData,
-				}
+				defs[i] = gToG(&v)
 			}
 
 			b, err := json.Marshal(&graphDefinitions{Graphs: defs})
@@ -169,6 +159,65 @@ type graphDefinition struct {
 	SelfSufficient      string   `json:"selfSufficient"`
 	IsSecret            bool     `json:"isSecret"`
 	PublishOptionalData bool     `json:"publishOptionalData"`
+}
+
+func gToG(g *pixela.GraphDefinition) graphDefinition {
+	return graphDefinition{
+		ID:                  g.ID,
+		Name:                g.Name,
+		Unit:                g.Unit,
+		Type:                g.Type,
+		Color:               g.Color,
+		TimeZone:            g.TimeZone,
+		PurgeCacheURLs:      g.PurgeCacheURLs,
+		SelfSufficient:      g.SelfSufficient,
+		IsSecret:            g.IsSecret,
+		PublishOptionalData: g.PublishOptionalData,
+	}
+}
+
+// NewCmdGraphGet creates a get graph command.
+func NewCmdGraphGet() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "get",
+		Short: "Get Graph definition",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			input := createGraphGetInput()
+			result, err := pixelaClient.Graph().Get(input)
+			if err != nil {
+				return fmt.Errorf("graph get failed: %w", err)
+			}
+			if result.IsSuccess == false {
+				s, err := marshalResult(&result.Result)
+				if err != nil {
+					return fmt.Errorf("marshal graph get result failed: %w", err)
+				}
+				cmd.Printf("%s\n", s)
+				return ErrNeglect
+			}
+
+			g := gToG(result)
+			b, err := json.Marshal(g)
+			if err != nil {
+				return fmt.Errorf("marshal graph get definition failed: %w", err)
+			}
+			cmd.Printf("%s\n", string(b))
+
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
+	cmd.MarkFlagRequired("id")
+
+	return cmd
+}
+
+func createGraphGetInput() *pixela.GraphGetInput {
+	return &pixela.GraphGetInput{
+		ID: getStringPtr(graphOptions.ID),
+	}
 }
 
 // NewCmdGraphGetSVG creates a get graph svg command.
@@ -430,7 +479,7 @@ func NewCmdGraphGetPixelDates() *cobra.Command {
 			if dates.IsSuccess == false {
 				s, err := marshalResult(&dates.Result)
 				if err != nil {
-					return fmt.Errorf("marshalPixels graph get pixel dates result failed: %w", err)
+					return fmt.Errorf("marshal graph get pixel dates result failed: %w", err)
 				}
 				cmd.Printf("%s\n", s)
 				return ErrNeglect
@@ -438,7 +487,7 @@ func NewCmdGraphGetPixelDates() *cobra.Command {
 
 			b, err := marshalPixels(dates.Pixels, graphOptions.WithBody)
 			if err != nil {
-				return fmt.Errorf("marshalPixels graph get pixel dates failed: %w", err)
+				return fmt.Errorf("marshal graph get pixel dates failed: %w", err)
 			}
 			cmd.Printf("%s\n", string(b))
 
