@@ -73,7 +73,7 @@ $ pa graph create \
     --unit=count \
     --color=ichou
 
-$ pa graph get | jq
+$ pa graph get-all | jq
 {
   "graphs": [
     {
@@ -97,6 +97,7 @@ Graph API sub commands.
 - create
 - delete
 - detail
+- get-all
 - get
 - list
 - pixels
