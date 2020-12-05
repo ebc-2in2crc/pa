@@ -110,7 +110,7 @@ func createGraphCreateInput() *pixela.GraphCreateInput {
 func NewCmdGraphGetAll() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get-all",
-		Short: "Get Graph definitions",
+		Short: "Get all Graph definitions",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			definitions, err := pixelaClient.Graph().GetAll()
