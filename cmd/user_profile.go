@@ -63,7 +63,7 @@ func NewCmdUserProfileUpdate() *cobra.Command {
 	cmd.Flags().StringVar(&userProfileOptions.Timezone, "timezone", "", "Specify the user's time zone")
 	cmd.Flags().StringVar(&userProfileOptions.AboutURL, "about-url", "", "Users can only show one external link")
 	cmd.Flags().StringSliceVar(&userProfileOptions.ContributeURLs, "contribute-urls", []string{}, "The contribute URLs")
-	cmd.Flags().StringVar(&userProfileOptions.PinnedGraphID, "pinned-graph-id", "", " Pin one of their own graphs")
+	cmd.Flags().StringVar(&userProfileOptions.PinnedGraphID, "pinned-graph-id", "", "Pin one of their own graphs")
 
 	return cmd
 }
