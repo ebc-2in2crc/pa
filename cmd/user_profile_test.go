@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"io/ioutil"
+	"net/http"
 	"strings"
 	"testing"
 
@@ -86,17 +87,19 @@ func TestUserProfileUpdate(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "Specified user is not found.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified user is not found.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified user is not found.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},

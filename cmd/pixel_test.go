@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"io/ioutil"
+	"net/http"
 	"strings"
 	"testing"
 
@@ -93,17 +94,19 @@ func TestPixelCreate(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "This date pixel already exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"This date pixel already exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"This date pixel already exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -172,17 +175,19 @@ func TestPixelIncrement(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "Specified graphID not exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified graphID not exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified graphID not exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -251,17 +256,19 @@ func TestPixelDecrement(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "Specified graphID not exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified graphID not exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified graphID not exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -333,6 +340,7 @@ func TestPixelGet(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur: nil,
 			quantity: pixela.Quantity{
@@ -345,9 +353,10 @@ func TestPixelGet(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Specified pixel not found.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified pixel not found.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified pixel not found.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -423,17 +432,19 @@ func TestPixelUpdate(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "Specified graphID not found.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified graphID not found.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified graphID not found.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -504,17 +515,19 @@ func TestPixelDelete(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "Specified pixel not found.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified pixel not found.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified pixel not found.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
