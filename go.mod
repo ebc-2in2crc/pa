@@ -3,7 +3,7 @@ module github.com/ebc-2in2crc/pa
 go 1.16
 
 require (
-	github.com/ebc-2in2crc/pixela4go v1.3.1
+	github.com/ebc-2in2crc/pixela4go v1.5.0
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.3.2 // indirect

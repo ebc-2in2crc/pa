@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"io/ioutil"
+	"net/http"
 	"strings"
 	"testing"
 
@@ -96,17 +97,19 @@ func TestUserCreate(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "This user already exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"This user already exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"This user already exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -195,17 +198,19 @@ func TestUserUpdate(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "User foo does not exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"User foo does not exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"User foo does not exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -247,17 +252,19 @@ func TestUserDelete(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "User foo does not exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"User foo does not exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"User foo does not exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},

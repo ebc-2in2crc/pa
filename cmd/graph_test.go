@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"io/ioutil"
+	"net/http"
 	"strconv"
 	"strings"
 	"testing"
@@ -124,17 +125,19 @@ func TestGraphCreate(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "This graphID already exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"This graphID already exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"This graphID already exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -174,6 +177,7 @@ func TestGraphGetAll(t *testing.T) {
 				Result: pixela.Result{
 					Message:   "Success.",
 					IsSuccess: true,
+					StatusCode: http.StatusOK,
 				},
 				Graphs: []pixela.GraphDefinition{
 					{
@@ -200,10 +204,11 @@ func TestGraphGetAll(t *testing.T) {
 				Result: pixela.Result{
 					Message:   "User does not exists.",
 					IsSuccess: false,
+					StatusCode: http.StatusBadRequest,
 				},
 			},
 			occur:    nil,
-			expected: `{"message":"User does not exists.","isSuccess":false}` + "\n",
+			expected: `{"message":"User does not exists.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			occur:    errors.New("some error occur"),
@@ -270,6 +275,7 @@ func TestGraphGet(t *testing.T) {
 				Result: pixela.Result{
 					Message:   "Success.",
 					IsSuccess: true,
+					StatusCode: http.StatusOK,
 				},
 				ID:                  "graph-id",
 				Name:                "graph-name",
@@ -292,10 +298,11 @@ func TestGraphGet(t *testing.T) {
 				Result: pixela.Result{
 					Message:   "User does not exists.",
 					IsSuccess: false,
+					StatusCode: http.StatusBadRequest,
 				},
 			},
 			occur:    nil,
-			expected: `{"message":"User does not exists.","isSuccess":false}` + "\n",
+			expected: `{"message":"User does not exists.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			occur:    errors.New("some error occur"),
@@ -483,6 +490,7 @@ func TestGraphStats(t *testing.T) {
 				Result: pixela.Result{
 					Message:   "Success.",
 					IsSuccess: true,
+					StatusCode: http.StatusOK,
 				},
 				TotalPixelsCount: 1,
 				MaxQuantity:      2,
@@ -500,10 +508,11 @@ func TestGraphStats(t *testing.T) {
 				Result: pixela.Result{
 					Message:   "Specified graphID not exist.",
 					IsSuccess: false,
+					StatusCode: http.StatusBadRequest,
 				},
 			},
 			occur:    nil,
-			expected: `{"message":"Specified graphID not exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified graphID not exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			stats:    pixela.Stats{},
@@ -612,17 +621,19 @@ func TestGraphUpdate(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "Specified graphID not exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified graphID not exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified graphID not exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -692,17 +703,19 @@ func TestGraphDelete(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Success.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "Specified graphID not exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified graphID not exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified graphID not exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -780,6 +793,7 @@ func TestGraphPixels(t *testing.T) {
 				Result: pixela.Result{
 					Message:   "Success.",
 					IsSuccess: true,
+					StatusCode: http.StatusOK,
 				},
 				Pixels: []string{"20200101"},
 			},
@@ -792,6 +806,7 @@ func TestGraphPixels(t *testing.T) {
 				Result: pixela.Result{
 					Message:   "Success.",
 					IsSuccess: true,
+					StatusCode: http.StatusOK,
 				},
 				Pixels: []pixela.PixelWithBody{
 					{
@@ -809,10 +824,11 @@ func TestGraphPixels(t *testing.T) {
 				Result: pixela.Result{
 					Message:   "Specified graphID not exist.",
 					IsSuccess: false,
+					StatusCode: http.StatusBadRequest,
 				},
 			},
 			occur:    nil,
-			expected: `{"message":"Specified graphID not exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified graphID not exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			occur:    errors.New("some error occur"),
@@ -881,17 +897,19 @@ func TestGraphStopwatch(t *testing.T) {
 			Result: pixela.Result{
 				Message:   "Stopwatch start successful.",
 				IsSuccess: true,
+				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Stopwatch start successful.","isSuccess":true}` + "\n",
+			expected: `{"message":"Stopwatch start successful.","isSuccess":true,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
 				Message:   "Specified graphID not exist.",
 				IsSuccess: false,
+				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified graphID not exist.","isSuccess":false}` + "\n",
+			expected: `{"message":"Specified graphID not exist.","isSuccess":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
