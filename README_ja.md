@@ -195,16 +195,16 @@ Usage:
   pa [command]
 
 Available Commands:
-  channel      Channel
-  completion   Generate shell completion
-  graph        Graph
-  help         Help about any command
-  notification Notification
-  pixel        Pixel
-  user         User
-  webhook      Webhook
+  completion  Generate shell completion
+  graph       Graph
+  help        Help about any command
+  pixel       Pixel
+  profile     Profile
+  user        User
+  webhook     Webhook
 
 Flags:
+      --config string     config file (default is $HOME/.pa)
   -h, --help              help for pa
   -t, --token string      Pixela user token
   -u, --username string   Pixela user name
@@ -232,6 +232,7 @@ Flags:
   -h, --help   help for user
 
 Global Flags:
+      --config string     config file (default is $HOME/.pa)
   -t, --token string      Pixela user token
   -u, --username string   Pixela user name
 
@@ -254,6 +255,7 @@ Flags:
   -c, --thanks-code string       Like a registration code obtained when you register for Patreon support
 
 Global Flags:
+      --config string     config file (default is $HOME/.pa)
   -t, --token string      Pixela user token
   -u, --username string   Pixela user name
 ```
