@@ -17,7 +17,7 @@ var globalOptions = &struct {
 
 var rootCmd *cobra.Command
 var cfgFile string
-var version = "v0.0.1"
+var version = "dev"
 
 // NewCmdRoot creates a root command.
 func NewCmdRoot() *cobra.Command {
