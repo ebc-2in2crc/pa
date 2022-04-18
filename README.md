@@ -263,7 +263,7 @@ Global Flags:
 ### Developer
 
 ```
-$ go get -u github.com/ebc-2in2crc/pa/...
+$ go install github.com/ebc-2in2crc/pa/...@latest
 ```
 
 ### User
