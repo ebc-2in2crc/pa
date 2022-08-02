@@ -3,6 +3,7 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	pixela "github.com/ebc-2in2crc/pixela4go"
 	"os"
 
 	"github.com/mitchellh/go-homedir"
@@ -11,8 +12,9 @@ import (
 )
 
 var globalOptions = &struct {
-	username string
-	token    string
+	username   string
+	token      string
+	retryCount int
 }{}
 
 var rootCmd *cobra.Command
@@ -26,6 +28,9 @@ func NewCmdRoot() *cobra.Command {
 		Short:         "The Pixela Command Line Interface is a unified tool to manage your Pixela services",
 		SilenceErrors: true,
 		SilenceUsage:  true,
+		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			pixela.RetryCount = getRetry()
+		},
 	}
 
 	cobra.OnInitialize(initConfig)
@@ -38,6 +43,8 @@ func NewCmdRoot() *cobra.Command {
 	viper.BindPFlag("username", cmd.PersistentFlags().Lookup("username"))
 	cmd.PersistentFlags().StringVarP(&globalOptions.token, "token", "t", "", "Pixela user token")
 	viper.BindPFlag("token", cmd.PersistentFlags().Lookup("token"))
+	cmd.PersistentFlags().IntVarP(&globalOptions.retryCount, "retry", "r", 0, "Specify the number of retries when the API call is rejected")
+	viper.BindPFlag("retry", cmd.PersistentFlags().Lookup("retry"))
 
 	addSubCommand(cmd)
 
@@ -104,4 +111,8 @@ func getUsername() string {
 
 func getToken() string {
 	return viper.GetString("token")
+}
+
+func getRetry() int {
+	return viper.GetInt("retry")
 }

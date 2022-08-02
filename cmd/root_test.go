@@ -13,18 +13,21 @@ func TestCmdRootFlags(t *testing.T) {
 		commandline      string
 		expectedUserName string
 		expectedToken    string
+		expectedRetry    int
 	}{
 		{
-			envs:             map[string]string{"PA_USERNAME": "pa-user", "PA_TOKEN": "pa-token"},
+			envs:             map[string]string{"PA_USERNAME": "pa-user", "PA_TOKEN": "pa-token", "PA_RETRY": "5"},
 			commandline:      "",
 			expectedUserName: "pa-user",
 			expectedToken:    "pa-token",
+			expectedRetry:    5,
 		},
 		{
-			envs:             map[string]string{"PA_USERNAME": "pa-user", "PA_TOKEN": "pa-token"},
-			commandline:      "--username=papa-user --token=papa-token",
+			envs:             map[string]string{"PA_USERNAME": "pa-user", "PA_TOKEN": "pa-token", "PA_RETRY": "5"},
+			commandline:      "--username=papa-user --token=papa-token --retry=10",
 			expectedUserName: "papa-user",
 			expectedToken:    "papa-token",
+			expectedRetry:    10,
 		},
 	}
 
@@ -41,6 +44,9 @@ func TestCmdRootFlags(t *testing.T) {
 		}
 		if getToken() != p.expectedToken {
 			t.Errorf("expected token: %s, but got %s", p.expectedToken, getToken())
+		}
+		if getRetry() != p.expectedRetry {
+			t.Errorf("expected retry: %d, but got %d", p.expectedRetry, getRetry())
 		}
 	}
 }
