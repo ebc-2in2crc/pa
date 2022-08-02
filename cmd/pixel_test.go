@@ -92,8 +92,8 @@ func TestPixelCreate(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -101,8 +101,8 @@ func TestPixelCreate(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "This date pixel already exist.",
-				IsSuccess: false,
+				Message:    "This date pixel already exist.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -173,8 +173,8 @@ func TestPixelIncrement(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -182,8 +182,8 @@ func TestPixelIncrement(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "Specified graphID not exist.",
-				IsSuccess: false,
+				Message:    "Specified graphID not exist.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -254,8 +254,8 @@ func TestPixelDecrement(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -263,8 +263,8 @@ func TestPixelDecrement(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "Specified graphID not exist.",
-				IsSuccess: false,
+				Message:    "Specified graphID not exist.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -338,8 +338,8 @@ func TestPixelGet(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur: nil,
@@ -351,8 +351,8 @@ func TestPixelGet(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "Specified pixel not found.",
-				IsSuccess: false,
+				Message:    "Specified pixel not found.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -430,8 +430,8 @@ func TestPixelUpdate(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -439,8 +439,8 @@ func TestPixelUpdate(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "Specified graphID not found.",
-				IsSuccess: false,
+				Message:    "Specified graphID not found.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -513,8 +513,8 @@ func TestPixelDelete(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -522,8 +522,8 @@ func TestPixelDelete(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "Specified pixel not found.",
-				IsSuccess: false,
+				Message:    "Specified pixel not found.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,

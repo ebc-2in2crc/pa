@@ -85,8 +85,8 @@ func TestUserProfileUpdate(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -94,8 +94,8 @@ func TestUserProfileUpdate(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "Specified user is not found.",
-				IsSuccess: false,
+				Message:    "Specified user is not found.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,

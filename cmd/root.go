@@ -3,8 +3,9 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	pixela "github.com/ebc-2in2crc/pixela4go"
 	"os"
+
+	pixela "github.com/ebc-2in2crc/pixela4go"
 
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
