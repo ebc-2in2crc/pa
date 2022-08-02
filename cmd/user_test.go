@@ -95,8 +95,8 @@ func TestUserCreate(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -104,8 +104,8 @@ func TestUserCreate(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "This user already exist.",
-				IsSuccess: false,
+				Message:    "This user already exist.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -196,8 +196,8 @@ func TestUserUpdate(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -205,8 +205,8 @@ func TestUserUpdate(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "User foo does not exist.",
-				IsSuccess: false,
+				Message:    "User foo does not exist.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -250,8 +250,8 @@ func TestUserDelete(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -259,8 +259,8 @@ func TestUserDelete(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "User foo does not exist.",
-				IsSuccess: false,
+				Message:    "User foo does not exist.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,

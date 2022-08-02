@@ -19,6 +19,8 @@ If you run E2E test, Set below environment variables.
 		return
 	}
 
+	os.Setenv("PA_RETRY", "20")
+
 	testE2EUserCreate(t)
 	testE2EUserUpdate(t)
 

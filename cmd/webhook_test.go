@@ -85,8 +85,8 @@ func TestWebhookCreate(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:       nil,
@@ -95,8 +95,8 @@ func TestWebhookCreate(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "It is necessary to specify graphID, and type.",
-				IsSuccess: false,
+				Message:    "It is necessary to specify graphID, and type.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -142,8 +142,8 @@ func TestWebhookGetAll(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur: nil,
@@ -158,8 +158,8 @@ func TestWebhookGetAll(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "User does not exist.",
-				IsSuccess: false,
+				Message:    "User does not exist.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -231,8 +231,8 @@ func TestWebhookInvoke(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -240,8 +240,8 @@ func TestWebhookInvoke(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "Specified user or webhook not exist.",
-				IsSuccess: false,
+				Message:    "Specified user or webhook not exist.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
@@ -312,8 +312,8 @@ func TestWebhookDelete(t *testing.T) {
 	}{
 		{
 			Result: pixela.Result{
-				Message:   "Success.",
-				IsSuccess: true,
+				Message:    "Success.",
+				IsSuccess:  true,
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
@@ -321,8 +321,8 @@ func TestWebhookDelete(t *testing.T) {
 		},
 		{
 			Result: pixela.Result{
-				Message:   "Specified user or webhook not exist.",
-				IsSuccess: false,
+				Message:    "Specified user or webhook not exist.",
+				IsSuccess:  false,
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
