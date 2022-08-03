@@ -45,6 +45,8 @@ github.com/ebc-2in2crc/pixela4go v1.5.0 h1:UP4T0KBz+b/74oeT569hn/qoEexe01LITR0qI
 github.com/ebc-2in2crc/pixela4go v1.5.0/go.mod h1:xXDsS5Wis6GQQipkXDQACqDdMd6eUmDfP5tj/dLy5M8=
 github.com/ebc-2in2crc/pixela4go v1.6.0 h1:JVR9TB7M3lP5U7lClxgxTFqLzl3cKi20LtG5gI73CY4=
 github.com/ebc-2in2crc/pixela4go v1.6.0/go.mod h1:xXDsS5Wis6GQQipkXDQACqDdMd6eUmDfP5tj/dLy5M8=
+github.com/ebc-2in2crc/pixela4go v1.6.1 h1:EWvw7vW4DzIoME9e+U8B5qmk3uoDj7kQODgHgMYZmro=
+github.com/ebc-2in2crc/pixela4go v1.6.1/go.mod h1:xXDsS5Wis6GQQipkXDQACqDdMd6eUmDfP5tj/dLy5M8=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=
