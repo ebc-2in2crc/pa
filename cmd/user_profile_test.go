@@ -90,7 +90,7 @@ func TestUserProfileUpdate(t *testing.T) {
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"isRejected":false,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
@@ -99,7 +99,7 @@ func TestUserProfileUpdate(t *testing.T) {
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"Specified user is not found.","isSuccess":false,"statusCode":400}` + "\n",
+			expected: `{"message":"Specified user is not found.","isSuccess":false,"isRejected":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},

@@ -3,7 +3,7 @@ module github.com/ebc-2in2crc/pa
 go 1.18
 
 require (
-	github.com/ebc-2in2crc/pixela4go v1.6.0
+	github.com/ebc-2in2crc/pixela4go v1.6.2
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v1.0.0

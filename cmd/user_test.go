@@ -100,7 +100,7 @@ func TestUserCreate(t *testing.T) {
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"isRejected":false,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
@@ -109,7 +109,7 @@ func TestUserCreate(t *testing.T) {
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"This user already exist.","isSuccess":false,"statusCode":400}` + "\n",
+			expected: `{"message":"This user already exist.","isSuccess":false,"isRejected":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -201,7 +201,7 @@ func TestUserUpdate(t *testing.T) {
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"isRejected":false,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
@@ -210,7 +210,7 @@ func TestUserUpdate(t *testing.T) {
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"User foo does not exist.","isSuccess":false,"statusCode":400}` + "\n",
+			expected: `{"message":"User foo does not exist.","isSuccess":false,"isRejected":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
@@ -255,7 +255,7 @@ func TestUserDelete(t *testing.T) {
 				StatusCode: http.StatusOK,
 			},
 			occur:    nil,
-			expected: `{"message":"Success.","isSuccess":true,"statusCode":200}` + "\n",
+			expected: `{"message":"Success.","isSuccess":true,"isRejected":false,"statusCode":200}` + "\n",
 		},
 		{
 			Result: pixela.Result{
@@ -264,7 +264,7 @@ func TestUserDelete(t *testing.T) {
 				StatusCode: http.StatusBadRequest,
 			},
 			occur:    nil,
-			expected: `{"message":"User foo does not exist.","isSuccess":false,"statusCode":400}` + "\n",
+			expected: `{"message":"User foo does not exist.","isSuccess":false,"isRejected":false,"statusCode":400}` + "\n",
 		},
 		{
 			Result:   pixela.Result{},
