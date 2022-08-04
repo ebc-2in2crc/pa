@@ -13,6 +13,7 @@ BINDIR := $(BUILDDIR)/bin
 PKGDIR := $(BUILDDIR)/pkg
 DISTDIR := $(BUILDDIR)/dist
 
+GOFLAGS := -trimpath
 VERSION := $(shell git describe --tags --abbrev=0)
 LDFLAGS := -X 'github.com/ebc-2in2crc/$(NAME)/cmd.version=$(VERSION)'
 GOXOSARCH := "darwin/amd64 darwin/arm64 windows/386 windows/amd64 linux/386 linux/amd64"
@@ -37,13 +38,13 @@ devel-deps: deps
 .PHONY: build
 ## Build binaries
 build: deps
-	$(GOBUILD) -ldflags "$(LDFLAGS)" -o $(BINDIR)/$(NAME) ./cmd/$(NAME)
+	$(GOBUILD) -trimpath -ldflags "$(LDFLAGS)" -o $(BINDIR)/$(NAME) ./cmd/$(NAME)
 
 .PHONY: cross-build
 ## Cross build binaries
 cross-build:
 	rm -rf $(PKGDIR)
-	gox -osarch=$(GOXOSARCH) -ldflags "$(LDFLAGS)" -output=$(GOXOUTPUT) ./cmd/$(NAME)
+	env GOFLAGS="$(GOFLAGS)" gox -osarch=$(GOXOSARCH) -ldflags "$(LDFLAGS)" -output=$(GOXOUTPUT) ./cmd/$(NAME)
 
 .PHONY: package
 ## Make package
