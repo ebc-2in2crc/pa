@@ -206,6 +206,7 @@ Available Commands:
 Flags:
       --config string     config file (default is $HOME/.pa)
   -h, --help              help for pa
+  -r, --retry int         Specify the number of retries when the API call is rejected
   -t, --token string      Pixela user token
   -u, --username string   Pixela user name
   -v, --version           version for pa
@@ -233,6 +234,7 @@ Flags:
 
 Global Flags:
       --config string     config file (default is $HOME/.pa)
+  -r, --retry int         Specify the number of retries when the API call is rejected
   -t, --token string      Pixela user token
   -u, --username string   Pixela user name
 
