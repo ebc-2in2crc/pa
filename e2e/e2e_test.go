@@ -22,6 +22,9 @@ If you run E2E test, Set below environment variables.
 	os.Setenv("PA_RETRY", "20")
 
 	testE2EUserCreate(t)
+	defer func() {
+		testE2EUserDelete(t)
+	}()
 	testE2EUserUpdate(t)
 
 	testE2EUserProfileUpdate(t)
@@ -47,5 +50,4 @@ If you run E2E test, Set below environment variables.
 	testE2EWebhookDelete(t)
 
 	testE2EGraphDelete(t)
-	testE2EUserDelete(t)
 }
