@@ -72,7 +72,7 @@ func TestPixelCreateInput(t *testing.T) {
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelCreateInput()
 
@@ -156,7 +156,7 @@ func TestPixelIncrementInput(t *testing.T) {
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelIncrementInput()
 
@@ -237,7 +237,7 @@ func TestPixelDecrementInput(t *testing.T) {
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelDecrementInput()
 
@@ -319,7 +319,7 @@ func TestPixelGetInput(t *testing.T) {
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelGetInput()
 
@@ -410,7 +410,7 @@ func TestPixelUpdateInput(t *testing.T) {
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelUpdateInput()
 
@@ -495,7 +495,7 @@ func TestPixelDeleteInput(t *testing.T) {
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelDeleteInput()
 

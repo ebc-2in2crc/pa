@@ -41,11 +41,11 @@ func NewCmdRoot() *cobra.Command {
 	viper.SetEnvPrefix("pa")
 	cmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.pa)")
 	cmd.PersistentFlags().StringVarP(&globalOptions.username, "username", "u", "", "Pixela user name")
-	viper.BindPFlag("username", cmd.PersistentFlags().Lookup("username"))
+	_ = viper.BindPFlag("username", cmd.PersistentFlags().Lookup("username"))
 	cmd.PersistentFlags().StringVarP(&globalOptions.token, "token", "t", "", "Pixela user token")
-	viper.BindPFlag("token", cmd.PersistentFlags().Lookup("token"))
+	_ = viper.BindPFlag("token", cmd.PersistentFlags().Lookup("token"))
 	cmd.PersistentFlags().IntVarP(&globalOptions.retryCount, "retry", "r", 0, "Specify the number of retries when the API call is rejected")
-	viper.BindPFlag("retry", cmd.PersistentFlags().Lookup("retry"))
+	_ = viper.BindPFlag("retry", cmd.PersistentFlags().Lookup("retry"))
 
 	addSubCommand(cmd)
 
@@ -68,7 +68,7 @@ func Execute() {
 
 	err := rootCmd.Execute()
 	if err != nil {
-		if errors.Is(err, ErrNeglect) == false {
+		if !errors.Is(err, ErrNeglect) {
 			rootCmd.PrintErr(err)
 		}
 		os.Exit(1)
@@ -99,7 +99,7 @@ func initConfig() {
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok == false {
+		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
 			fmt.Println(err)
 			os.Exit(1)
 		}

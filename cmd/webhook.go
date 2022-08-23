@@ -49,7 +49,7 @@ func NewCmdWebhookCreate() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -81,7 +81,7 @@ func NewCmdWebhookGetAll() *cobra.Command {
 				return fmt.Errorf("webhook get all failed: %w", err)
 			}
 
-			if whs.IsSuccess == false {
+			if !whs.IsSuccess {
 				s, err := marshalResult(&whs.Result)
 				if err != nil {
 					return fmt.Errorf("marshal webhook get all result failed: %w", err)
@@ -125,7 +125,7 @@ func NewCmdWebhookInvoke() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -133,7 +133,7 @@ func NewCmdWebhookInvoke() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&webhookOptions.WebhookHash, "hash", "", "Webhook hash")
-	cmd.MarkFlagRequired("hash")
+	_ = cmd.MarkFlagRequired("hash")
 
 	return cmd
 }
@@ -162,7 +162,7 @@ func NewCmdWebhookDelete() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -170,7 +170,7 @@ func NewCmdWebhookDelete() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&webhookOptions.WebhookHash, "hash", "", "Webhook hash")
-	cmd.MarkFlagRequired("hash")
+	_ = cmd.MarkFlagRequired("hash")
 
 	return cmd
 }

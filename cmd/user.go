@@ -38,10 +38,18 @@ func NewCmdUserCreate() *cobra.Command {
 		Use:   "create",
 		Short: "Create a new Pixela user",
 		Args:  cobra.NoArgs,
-		PreRun: func(cmd *cobra.Command, args []string) {
-			viper.BindPFlag("agree_terms_of_service", cmd.Flags().Lookup("agree-terms-of-service"))
-			viper.BindPFlag("not_minor", cmd.Flags().Lookup("not-minor"))
-			viper.BindPFlag("thanks_code", cmd.Flags().Lookup("thanks-code"))
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if err := viper.BindPFlag("agree_terms_of_service", cmd.Flags().Lookup("agree-terms-of-service")); err != nil {
+				return fmt.Errorf("bind flag failed: %w", err)
+			}
+			if err := viper.BindPFlag("not_minor", cmd.Flags().Lookup("not-minor")); err != nil {
+				return fmt.Errorf("bind flag failed: %w", err)
+			}
+			if err := viper.BindPFlag("thanks_code", cmd.Flags().Lookup("thanks-code")); err != nil {
+				return fmt.Errorf("bind flag failed: %w", err)
+			}
+
+			return nil
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			input := createUserCreateInput()
@@ -55,7 +63,7 @@ func NewCmdUserCreate() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -83,9 +91,15 @@ func NewCmdUserUpdate() *cobra.Command {
 		Use:   "update",
 		Short: "Updates user token",
 		Args:  cobra.NoArgs,
-		PreRun: func(cmd *cobra.Command, args []string) {
-			viper.BindPFlag("new_token", cmd.Flags().Lookup("new-token"))
-			viper.BindPFlag("thanks_code", cmd.Flags().Lookup("thanks-code"))
+		PreRunE: func(cmd *cobra.Command, args []string) error {
+			if err := viper.BindPFlag("new_token", cmd.Flags().Lookup("new-token")); err != nil {
+				return fmt.Errorf("bind flag failed: %w", err)
+			}
+			if err := viper.BindPFlag("thanks_code", cmd.Flags().Lookup("thanks-code")); err != nil {
+				return fmt.Errorf("bind flag failed: %w", err)
+			}
+
+			return nil
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			input := createUserUpdateInput()
@@ -99,7 +113,7 @@ func NewCmdUserUpdate() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -126,7 +140,7 @@ func NewCmdUserDelete() *cobra.Command {
 		Short: "Delete a Pixela user",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if userOptions.DeleteMe == false {
+			if !userOptions.DeleteMe {
 				cmd.Println("Specify the '--delete-me' flag to confirm the deletion.")
 				return nil
 			}
@@ -141,7 +155,7 @@ func NewCmdUserDelete() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil

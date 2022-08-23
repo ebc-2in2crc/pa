@@ -61,7 +61,7 @@ func TestUserProfileUpdateInput(t *testing.T) {
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createUserProfileUpdateInput()
 

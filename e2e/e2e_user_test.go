@@ -6,11 +6,13 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/ebc-2in2crc/pa/cmd"
 )
 
 func testE2EUserCreate(t *testing.T) {
-	os.Setenv("PA_TOKEN", os.Getenv("PA_FIRST_TOKEN"))
+	assert.NoError(t, os.Setenv("PA_TOKEN", os.Getenv("PA_FIRST_TOKEN")))
 
 	cmd := cmd.NewCmdRoot()
 	cmd.SetOut(ioutil.Discard)
@@ -39,7 +41,7 @@ func testE2EUserUpdate(t *testing.T) {
 		t.Errorf("User update got: %+v\nwant: nil", err)
 	}
 
-	os.Setenv("PA_TOKEN", newToken)
+	assert.NoError(t, os.Setenv("PA_TOKEN", newToken))
 }
 
 func testE2EUserDelete(t *testing.T) {

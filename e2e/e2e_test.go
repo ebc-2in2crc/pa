@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestE2E(t *testing.T) {
@@ -19,7 +21,7 @@ If you run E2E test, Set below environment variables.
 		return
 	}
 
-	os.Setenv("PA_RETRY", "20")
+	assert.NoError(t, os.Setenv("PA_RETRY", "20"))
 
 	testE2EUserCreate(t)
 	defer func() {

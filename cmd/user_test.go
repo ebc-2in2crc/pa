@@ -76,7 +76,7 @@ func TestUserCreateInput(t *testing.T) {
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createUserCreateInput()
 
@@ -178,7 +178,7 @@ func TestUserUpdateInput(t *testing.T) {
 		cmd.SetOut(ioutil.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createUserUpdateInput()
 
@@ -238,9 +238,6 @@ func TestUserUpdate(t *testing.T) {
 	}
 }
 
-func _TestUserDeleteInput(t *testing.T) {
-}
-
 func TestUserDelete(t *testing.T) {
 	defer func() { pixelaClient.user = nil }()
 	params := []struct {
@@ -281,7 +278,7 @@ func TestUserDelete(t *testing.T) {
 		c := NewCmdUserDelete()
 		buffer := bytes.NewBuffer([]byte{})
 		c.SetOut(buffer)
-		c.Flags().Set("delete-me", "true")
+		assert.NoError(t, c.Flags().Set("delete-me", "true"))
 
 		err := c.RunE(c, []string{})
 
