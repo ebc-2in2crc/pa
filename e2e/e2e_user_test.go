@@ -1,19 +1,21 @@
 package e2e
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/ebc-2in2crc/pa/cmd"
 )
 
 func testE2EUserCreate(t *testing.T) {
-	os.Setenv("PA_TOKEN", os.Getenv("PA_FIRST_TOKEN"))
+	assert.NoError(t, os.Setenv("PA_TOKEN", os.Getenv("PA_FIRST_TOKEN")))
 
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "user create --agree-terms-of-service --not-minor"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -27,7 +29,7 @@ func testE2EUserCreate(t *testing.T) {
 
 func testE2EUserUpdate(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	newToken := os.Getenv("PA_SECOND_TOKEN")
 	commandline := "user update --new-token=" + newToken
 	args := strings.Split(commandline, " ")
@@ -39,12 +41,12 @@ func testE2EUserUpdate(t *testing.T) {
 		t.Errorf("User update got: %+v\nwant: nil", err)
 	}
 
-	os.Setenv("PA_TOKEN", newToken)
+	assert.NoError(t, os.Setenv("PA_TOKEN", newToken))
 }
 
 func testE2EUserDelete(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "user delete --delete-me"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)

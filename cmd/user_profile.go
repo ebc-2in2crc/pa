@@ -50,7 +50,7 @@ func NewCmdUserProfileUpdate() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil

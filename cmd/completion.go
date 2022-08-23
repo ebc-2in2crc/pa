@@ -40,7 +40,10 @@ func NewCmdCompletion() *cobra.Command {
 					return errors.Wrapf(err, "failed to PowerShell completion")
 				}
 			default:
-				showHelp(cmd, args)
+				err := showHelp(cmd, args)
+				if err != nil {
+					return errors.Wrapf(err, "failed to show help")
+				}
 			}
 			return nil
 		},

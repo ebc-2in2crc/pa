@@ -72,7 +72,7 @@ func NewCmdGraphCreate() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -117,7 +117,7 @@ func NewCmdGraphGetAll() *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("graph get all failed: %w", err)
 			}
-			if definitions.IsSuccess == false {
+			if !definitions.IsSuccess {
 				s, err := marshalResult(&definitions.Result)
 				if err != nil {
 					return fmt.Errorf("marshal graph get all result failed: %w", err)
@@ -188,7 +188,7 @@ func NewCmdGraphGet() *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("graph get failed: %w", err)
 			}
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				s, err := marshalResult(&result.Result)
 				if err != nil {
 					return fmt.Errorf("marshal graph get result failed: %w", err)
@@ -209,7 +209,7 @@ func NewCmdGraphGet() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("id")
+	_ = cmd.MarkFlagRequired("id")
 
 	return cmd
 }
@@ -242,7 +242,7 @@ func NewCmdGraphGetSVG() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("id")
+	_ = cmd.MarkFlagRequired("id")
 	cmd.Flags().StringVar(&graphOptions.Date, "date", "", "Create a pixelation graph dating back to the past with that day as the start date")
 	cmd.Flags().StringVar(&graphOptions.Mode, "mode", "", "The Graph display mode")
 	cmd.Flags().StringVar(&graphOptions.Appearance, "appearance", "", "The graph appearance mode")
@@ -275,7 +275,7 @@ func NewCmdGraphURL() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("id")
+	_ = cmd.MarkFlagRequired("id")
 	cmd.Flags().StringVar(&graphOptions.Mode, "mode", "", "The graph html page mode")
 
 	return cmd
@@ -300,7 +300,7 @@ func NewCmdGraphStats() *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("graph stats failed: %w", err)
 			}
-			if stats.IsSuccess == false {
+			if !stats.IsSuccess {
 				s, err := marshalResult(&stats.Result)
 				if err != nil {
 					return fmt.Errorf("marshal graph stats result failed: %w", err)
@@ -327,7 +327,7 @@ func NewCmdGraphStats() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("id")
+	_ = cmd.MarkFlagRequired("id")
 
 	return cmd
 }
@@ -365,7 +365,7 @@ func NewCmdGraphUpdate() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -373,7 +373,7 @@ func NewCmdGraphUpdate() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("id")
+	_ = cmd.MarkFlagRequired("id")
 	cmd.Flags().StringVar(&graphOptions.Name, "name", "", "The name of the pixelation graph")
 	cmd.Flags().StringVar(&graphOptions.Unit, "unit", "", "A Unit of the quantity recorded in the pixelation graph")
 	cmd.Flags().StringVar(&graphOptions.Color, "color", "", "Defines the display color of the pixel in the pixelation graph")
@@ -425,7 +425,7 @@ func NewCmdGraphDelete() *cobra.Command {
 		Short: "Delete a Graph",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if graphOptions.DeleteMe == false {
+			if !graphOptions.DeleteMe {
 				cmd.Println("Specify the '--delete-me' flag to confirm the deletion.")
 				return nil
 			}
@@ -441,7 +441,7 @@ func NewCmdGraphDelete() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -449,7 +449,7 @@ func NewCmdGraphDelete() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("id")
+	_ = cmd.MarkFlagRequired("id")
 
 	// グラフの削除は非常に危険なので `--delete-me` フラグが指定したときだけ削除する
 	cmd.Flags().BoolVarP(&graphOptions.DeleteMe, "delete-me", "", false, "Delete your Graph")
@@ -476,7 +476,7 @@ func NewCmdGraphGetPixelDates() *cobra.Command {
 				return fmt.Errorf("graph get pixel dates failed: %w", err)
 			}
 
-			if dates.IsSuccess == false {
+			if !dates.IsSuccess {
 				s, err := marshalResult(&dates.Result)
 				if err != nil {
 					return fmt.Errorf("marshal graph get pixel dates result failed: %w", err)
@@ -496,7 +496,7 @@ func NewCmdGraphGetPixelDates() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("id")
+	_ = cmd.MarkFlagRequired("id")
 	cmd.Flags().StringVar(&graphOptions.From, "from", "", "The start position of the period")
 	cmd.Flags().StringVar(&graphOptions.To, "to", "", "The end position of the period")
 	cmd.Flags().BoolVar(&graphOptions.WithBody, "with-body", false, "Get all the information the Pixel has")
@@ -563,7 +563,7 @@ func NewCmdGraphStopwatch() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -571,7 +571,7 @@ func NewCmdGraphStopwatch() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("id")
+	_ = cmd.MarkFlagRequired("id")
 
 	return cmd
 }

@@ -103,7 +103,7 @@ func getBoolFlag(name string) *bool {
 }
 
 func getBoolPtr(v bool) *bool {
-	if v == false {
+	if !v {
 		return nil
 	}
 	return &v
@@ -122,10 +122,6 @@ func getStringPtr(v string) *string {
 
 func showHelp(cmd *cobra.Command, args []string) error {
 	return cmd.Help()
-}
-
-func newPixelaClient() *pixela.Client {
-	return pixela.New(getUsername(), getToken())
 }
 
 func marshalResult(result *pixela.Result) (string, error) {

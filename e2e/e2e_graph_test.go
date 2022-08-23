@@ -1,7 +1,7 @@
 package e2e
 
 import (
-	"io/ioutil"
+	"io"
 	"strings"
 	"testing"
 
@@ -10,7 +10,7 @@ import (
 
 func testE2EGraphCreate(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "graph create --id=graph-id --name=graph-name --unit=times --type=int --color=sora" +
 		" --timezone=Asia/Tokyo --self-sufficient=none"
 	args := strings.Split(commandline, " ")
@@ -25,7 +25,7 @@ func testE2EGraphCreate(t *testing.T) {
 
 func testE2EGraphGetAll(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "graph get-all"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -39,7 +39,7 @@ func testE2EGraphGetAll(t *testing.T) {
 
 func testE2EGraphGetSVG(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "graph svg --id=graph-id"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -53,7 +53,7 @@ func testE2EGraphGetSVG(t *testing.T) {
 
 func testE2EGraphStats(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "graph stats --id=graph-id"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -67,7 +67,7 @@ func testE2EGraphStats(t *testing.T) {
 
 func testE2EGraphUpdate(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "graph update --id=graph-id --name=graph-name --unit=times --color=sora" +
 		" --timezone=Asia/Tokyo --self-sufficient=none"
 	args := strings.Split(commandline, " ")
@@ -82,7 +82,7 @@ func testE2EGraphUpdate(t *testing.T) {
 
 func testE2EGraphGetPixelDates(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "graph pixels --id=graph-id --from=20200101 --to=20200130"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -96,7 +96,7 @@ func testE2EGraphGetPixelDates(t *testing.T) {
 
 func testE2EGraphStopwatch(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "graph stopwatch --id=graph-id"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -110,7 +110,7 @@ func testE2EGraphStopwatch(t *testing.T) {
 
 func testE2EGraphDelete(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "graph delete --id=graph-id"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)

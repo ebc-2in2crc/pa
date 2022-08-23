@@ -1,7 +1,7 @@
 package e2e
 
 import (
-	"io/ioutil"
+	"io"
 	"strings"
 	"testing"
 
@@ -10,7 +10,7 @@ import (
 
 func testE2EUserProfileUpdate(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "profile update --display-name=display-name"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)

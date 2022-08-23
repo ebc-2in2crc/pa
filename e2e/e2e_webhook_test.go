@@ -1,7 +1,7 @@
 package e2e
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -13,7 +13,7 @@ import (
 
 func testE2EWebhookCreate(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "webhook create --graph-id=graph-id --type=increment"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -27,7 +27,7 @@ func testE2EWebhookCreate(t *testing.T) {
 
 func testE2EWebhookGetAll(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "webhook get"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -46,7 +46,7 @@ func testE2EWebhookInvoke(t *testing.T) {
 	}
 
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "webhook invoke --hash=" + hash
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -81,7 +81,7 @@ func testE2EWebhookDelete(t *testing.T) {
 	}
 
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "webhook delete --hash=" + hash
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)

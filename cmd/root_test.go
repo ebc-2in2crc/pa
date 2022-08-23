@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -36,8 +36,8 @@ func TestCmdRootFlags(t *testing.T) {
 		cmd := NewCmdRoot()
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.SetOut(ioutil.Discard)
-		cmd.Execute()
+		cmd.SetOut(io.Discard)
+		_ = cmd.Execute()
 
 		if getUsername() != p.expectedUserName {
 			t.Errorf("expected username: %s, but got %s", p.expectedUserName, getUsername())
@@ -53,6 +53,6 @@ func TestCmdRootFlags(t *testing.T) {
 
 func setOSEnv(m map[string]string) {
 	for k, v := range m {
-		os.Setenv(k, v)
+		_ = os.Setenv(k, v)
 	}
 }

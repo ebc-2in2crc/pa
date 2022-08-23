@@ -3,7 +3,7 @@ package cmd
 import (
 	"bytes"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -95,10 +95,10 @@ func TestGraphCreateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createGraphCreateInput()
 
@@ -252,10 +252,10 @@ func TestGraphGetInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createGraphGetInput()
 
@@ -355,10 +355,10 @@ func TestGraphGetSVGInput(t *testing.T) {
 			svg: "SVG",
 		}
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createGraphGetSVGInput()
 
@@ -422,10 +422,10 @@ func TestGraphURLInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createGraphURLInput()
 
@@ -467,10 +467,10 @@ func TestGraphStatsInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createGraphStatsInput()
 
@@ -581,10 +581,10 @@ func TestGraphUpdateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createGraphUpdateInput()
 
@@ -650,7 +650,6 @@ func TestGraphUpdate(t *testing.T) {
 		c := NewCmdGraphUpdate()
 		buffer := bytes.NewBuffer([]byte{})
 		c.SetOut(buffer)
-		c.Flags().Set("delete-me", "true")
 
 		err := c.RunE(c, []string{})
 
@@ -681,10 +680,10 @@ func TestGraphDeleteInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createGraphDeleteInput()
 
@@ -732,7 +731,7 @@ func TestGraphDelete(t *testing.T) {
 		c := NewCmdGraphDelete()
 		buffer := bytes.NewBuffer([]byte{})
 		c.SetOut(buffer)
-		c.Flags().Set("delete-me", "true")
+		assert.NoError(t, c.Flags().Set("delete-me", "true"))
 
 		err := c.RunE(c, []string{})
 
@@ -766,10 +765,10 @@ func TestGraphPixelsInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createGraphGetPixelDatesInput()
 
@@ -844,7 +843,7 @@ func TestGraphPixels(t *testing.T) {
 		c := NewCmdGraphGetPixelDates()
 		buffer := bytes.NewBuffer([]byte{})
 		c.SetOut(buffer)
-		c.Flags().Set("with-body", strconv.FormatBool(v.withBody))
+		assert.NoError(t, c.Flags().Set("with-body", strconv.FormatBool(v.withBody)))
 
 		err := c.RunE(c, []string{})
 
@@ -875,10 +874,10 @@ func TestGraphStopwatchInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createGraphStopwatchInput()
 

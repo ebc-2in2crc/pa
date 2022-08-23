@@ -3,7 +3,7 @@ package cmd
 import (
 	"bytes"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 	"testing"
@@ -69,10 +69,10 @@ func TestPixelCreateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelCreateInput()
 
@@ -153,10 +153,10 @@ func TestPixelIncrementInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelIncrementInput()
 
@@ -234,10 +234,10 @@ func TestPixelDecrementInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelDecrementInput()
 
@@ -316,10 +316,10 @@ func TestPixelGetInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelGetInput()
 
@@ -407,10 +407,10 @@ func TestPixelUpdateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelUpdateInput()
 
@@ -492,10 +492,10 @@ func TestPixelDeleteInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createPixelDeleteInput()
 

@@ -3,7 +3,7 @@ package cmd
 import (
 	"bytes"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 	"testing"
@@ -63,10 +63,10 @@ func TestWebhookCreateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createWebhookCreateInput()
 
@@ -127,9 +127,6 @@ func TestWebhookCreate(t *testing.T) {
 			assert.Contains(t, err.Error(), v.expected)
 		}
 	}
-}
-
-func _TestWebhookGetInput(t *testing.T) {
 }
 
 func TestWebhookGetAll(t *testing.T) {
@@ -211,10 +208,10 @@ func TestWebhookInvokeInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createWebhookInvokeInput()
 
@@ -292,10 +289,10 @@ func TestWebhookDeleteInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.Execute()
+		_ = cmd.Execute()
 
 		input := createWebhookDeleteInput()
 

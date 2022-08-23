@@ -53,7 +53,7 @@ func NewCmdPixelCreate() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -61,7 +61,7 @@ func NewCmdPixelCreate() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&pixelOptions.GraphID, "graph-id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("graph-id")
+	_ = cmd.MarkFlagRequired("graph-id")
 	cmd.Flags().StringVar(&pixelOptions.Date, "date", "", "The date on which the quantity is to be recorded")
 	cmd.Flags().StringVar(&pixelOptions.Quantity, "quantity", "", "The quantity to be registered on the specified date")
 	cmd.Flags().StringVar(&pixelOptions.OptionalData, "optional-data", "", "Additional information other than quantity")
@@ -96,7 +96,7 @@ func NewCmdPixelIncrement() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -104,7 +104,7 @@ func NewCmdPixelIncrement() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&pixelOptions.GraphID, "graph-id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("graph-id")
+	_ = cmd.MarkFlagRequired("graph-id")
 
 	return cmd
 }
@@ -133,7 +133,7 @@ func NewCmdPixelDecrement() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -141,7 +141,7 @@ func NewCmdPixelDecrement() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&pixelOptions.GraphID, "graph-id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("graph-id")
+	_ = cmd.MarkFlagRequired("graph-id")
 
 	return cmd
 }
@@ -165,7 +165,7 @@ func NewCmdPixelGet() *cobra.Command {
 				return fmt.Errorf("pixel get failed: %w", err)
 			}
 
-			if q.IsSuccess == false {
+			if !q.IsSuccess {
 				s, err := marshalResult(&q.Result)
 				if err != nil {
 					return fmt.Errorf("marshal pixel get result failed: %w", err)
@@ -185,9 +185,9 @@ func NewCmdPixelGet() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&pixelOptions.GraphID, "graph-id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("graph-id")
+	_ = cmd.MarkFlagRequired("graph-id")
 	cmd.Flags().StringVar(&pixelOptions.Date, "date", "", "The date on which the quantity is to be recorded")
-	cmd.MarkFlagRequired("date")
+	_ = cmd.MarkFlagRequired("date")
 
 	return cmd
 }
@@ -222,7 +222,7 @@ func NewCmdPixelUpdate() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -230,9 +230,9 @@ func NewCmdPixelUpdate() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&pixelOptions.GraphID, "graph-id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("graph-id")
+	_ = cmd.MarkFlagRequired("graph-id")
 	cmd.Flags().StringVar(&pixelOptions.Date, "date", "", "The date on which the quantity is to be recorded")
-	cmd.MarkFlagRequired("date")
+	_ = cmd.MarkFlagRequired("date")
 	cmd.Flags().StringVar(&pixelOptions.Quantity, "quantity", "", "The quantity to be registered on the specified date")
 	cmd.Flags().StringVar(&pixelOptions.OptionalData, "optional-data", "", "Additional information other than quantity")
 
@@ -266,7 +266,7 @@ func NewCmdPixelDelete() *cobra.Command {
 			}
 			cmd.Printf("%s\n", s)
 
-			if result.IsSuccess == false {
+			if !result.IsSuccess {
 				return ErrNeglect
 			}
 			return nil
@@ -274,9 +274,9 @@ func NewCmdPixelDelete() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&pixelOptions.GraphID, "graph-id", "", "ID for identifying the pixelation graph")
-	cmd.MarkFlagRequired("graph-id")
+	_ = cmd.MarkFlagRequired("graph-id")
 	cmd.Flags().StringVar(&pixelOptions.Date, "date", "", "The date on which the quantity is to be recorded")
-	cmd.MarkFlagRequired("date")
+	_ = cmd.MarkFlagRequired("date")
 
 	return cmd
 }
