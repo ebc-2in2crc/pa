@@ -3,7 +3,7 @@ package cmd
 import (
 	"bytes"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 	"testing"
@@ -69,7 +69,7 @@ func TestPixelCreateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -153,7 +153,7 @@ func TestPixelIncrementInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -234,7 +234,7 @@ func TestPixelDecrementInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -316,7 +316,7 @@ func TestPixelGetInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -407,7 +407,7 @@ func TestPixelUpdateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -492,7 +492,7 @@ func TestPixelDeleteInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()

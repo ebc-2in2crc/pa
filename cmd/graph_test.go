@@ -3,7 +3,7 @@ package cmd
 import (
 	"bytes"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -95,7 +95,7 @@ func TestGraphCreateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -252,7 +252,7 @@ func TestGraphGetInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -355,7 +355,7 @@ func TestGraphGetSVGInput(t *testing.T) {
 			svg: "SVG",
 		}
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -422,7 +422,7 @@ func TestGraphURLInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -467,7 +467,7 @@ func TestGraphStatsInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -581,7 +581,7 @@ func TestGraphUpdateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -680,7 +680,7 @@ func TestGraphDeleteInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -765,7 +765,7 @@ func TestGraphPixelsInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -874,7 +874,7 @@ func TestGraphStopwatchInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()

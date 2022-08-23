@@ -3,7 +3,7 @@ package cmd
 import (
 	"bytes"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 	"testing"
@@ -63,7 +63,7 @@ func TestWebhookCreateInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -208,7 +208,7 @@ func TestWebhookInvokeInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()
@@ -289,7 +289,7 @@ func TestWebhookDeleteInput(t *testing.T) {
 
 	for _, p := range params {
 		cmd := NewCmdRoot()
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
 		_ = cmd.Execute()

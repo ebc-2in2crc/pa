@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -36,7 +36,7 @@ func TestCmdRootFlags(t *testing.T) {
 		cmd := NewCmdRoot()
 		args := strings.Split(p.commandline, " ")
 		cmd.SetArgs(args)
-		cmd.SetOut(ioutil.Discard)
+		cmd.SetOut(io.Discard)
 		_ = cmd.Execute()
 
 		if getUsername() != p.expectedUserName {

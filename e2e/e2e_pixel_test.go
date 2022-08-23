@@ -1,7 +1,7 @@
 package e2e
 
 import (
-	"io/ioutil"
+	"io"
 	"strings"
 	"testing"
 
@@ -10,7 +10,7 @@ import (
 
 func testE2EPixelCreate(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "pixel create --graph-id=graph-id --date=20200101 --quantity=5"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -24,7 +24,7 @@ func testE2EPixelCreate(t *testing.T) {
 
 func testE2EPixelIncrement(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "pixel increment --graph-id=graph-id"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -38,7 +38,7 @@ func testE2EPixelIncrement(t *testing.T) {
 
 func testE2EPixelDecrement(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "pixel decrement --graph-id=graph-id"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -52,7 +52,7 @@ func testE2EPixelDecrement(t *testing.T) {
 
 func testE2EPixelGet(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "pixel get --graph-id=graph-id --date=20200101"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -66,7 +66,7 @@ func testE2EPixelGet(t *testing.T) {
 
 func testE2EPixelUpdate(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "pixel update --graph-id=graph-id --date=20200101 --quantity=5"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
@@ -80,7 +80,7 @@ func testE2EPixelUpdate(t *testing.T) {
 
 func testE2EPixelDelete(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
-	cmd.SetOut(ioutil.Discard)
+	cmd.SetOut(io.Discard)
 	commandline := "pixel delete --graph-id=graph-id --date=20200101"
 	args := strings.Split(commandline, " ")
 	cmd.SetArgs(args)
