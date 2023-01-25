@@ -265,16 +265,8 @@ Global Flags:
 
 ### Developer
 
-Go 1.16 or later.
-
 ```
 $ go install github.com/ebc-2in2crc/pa/cmd/pa@latest
-```
-
-Go 1.15.
-
-```
-$ go get -u github.com/ebc-2in2crc/pa/...
 ```
 
 ### User
