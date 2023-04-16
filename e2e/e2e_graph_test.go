@@ -90,7 +90,7 @@ func testE2EGraphAdd(t *testing.T) {
 	err := cmd.Execute()
 
 	if err != nil {
-		t.Errorf("graph update got: %+v\nwant: nil", err)
+		t.Errorf("graph add got: %+v\nwant: nil", err)
 	}
 }
 
