@@ -976,6 +976,48 @@ func TestGraphAddInput(t *testing.T) {
 	}
 }
 
+func TestGraphAdd(t *testing.T) {
+	defer func() { pixelaClient.graph = nil }()
+	params := []struct {
+		Result   pixela.Result
+		occur    error
+		expected string
+	}{
+		{
+			Result: pixela.Result{
+				Message:    "Success.",
+				IsSuccess:  true,
+				StatusCode: http.StatusOK,
+			},
+			occur:    nil,
+			expected: `{"message":"Success.","isSuccess":true,"isRejected":false,"statusCode":200}` + "\n",
+		},
+		{
+			Result:   pixela.Result{},
+			occur:    errors.New("some error occur"),
+			expected: `graph add failed:`,
+		},
+	}
+
+	for _, v := range params {
+		pixelaClient.graph = &pixelaGraphMock{
+			result: v.Result,
+			err:    v.occur,
+		}
+		c := NewCmdGraphAdd()
+		buffer := bytes.NewBuffer([]byte{})
+		c.SetOut(buffer)
+
+		err := c.RunE(c, []string{})
+
+		if v.occur == nil {
+			assert.Equal(t, v.expected, buffer.String())
+		} else {
+			assert.Contains(t, err.Error(), v.expected)
+		}
+	}
+}
+
 func TestGraphSubtractInput(t *testing.T) {
 	params := []struct {
 		commandline string
