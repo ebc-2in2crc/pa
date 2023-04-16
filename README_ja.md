@@ -96,6 +96,7 @@ $ pa graph get-all | jq
 
 Graph API sub commands.
 
+- add
 - create
 - delete
 - detail

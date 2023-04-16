@@ -43,6 +43,7 @@ type pixelaGraph interface {
 	Delete(input *pixela.GraphDeleteInput) (*pixela.Result, error)
 	GetPixelDates(input *pixela.GraphGetPixelDatesInput) (*pixela.Pixels, error)
 	Stopwatch(input *pixela.GraphStopwatchInput) (*pixela.Result, error)
+	Add(input *pixela.GraphAddInput) (*pixela.Result, error)
 }
 
 type pixelaPixel interface {

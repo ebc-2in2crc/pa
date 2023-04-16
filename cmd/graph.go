@@ -29,6 +29,7 @@ var graphOptions = &struct {
 	From                string
 	To                  string
 	WithBody            bool
+	Quantity            string
 }{}
 
 // NewCmdGraph creates a graph command.
@@ -50,6 +51,7 @@ func NewCmdGraph() *cobra.Command {
 	cmd.AddCommand(NewCmdGraphDelete())
 	cmd.AddCommand(NewCmdGraphGetPixelDates())
 	cmd.AddCommand(NewCmdGraphStopwatch())
+	cmd.AddCommand(NewCmdGraphAdd())
 
 	return cmd
 }
@@ -579,5 +581,43 @@ func NewCmdGraphStopwatch() *cobra.Command {
 func createGraphStopwatchInput() *pixela.GraphStopwatchInput {
 	return &pixela.GraphStopwatchInput{
 		ID: getStringPtr(graphOptions.ID),
+	}
+}
+
+// NewCmdGraphAdd creates a add graph command.
+func NewCmdGraphAdd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "add",
+		Short: "Add quantity to the Pixel of the day",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			input := createGraphAddInput()
+			result, err := pixelaClient.Graph().Add(input)
+			if err != nil {
+				return fmt.Errorf("graph add failed: %w", err)
+			}
+			s, err := marshalResult(result)
+			if err != nil {
+				return fmt.Errorf("marshal graph add result failed: %w", err)
+			}
+			cmd.Printf("%s\n", s)
+
+			if !result.IsSuccess {
+				return ErrNeglect
+			}
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
+	cmd.Flags().StringVar(&graphOptions.Quantity, "quantity", "", "The quantity to be added to the pixel of the day")
+
+	return cmd
+}
+
+func createGraphAddInput() *pixela.GraphAddInput {
+	return &pixela.GraphAddInput{
+		ID:       getStringPtr(graphOptions.ID),
+		Quantity: getStringPtr(graphOptions.Quantity),
 	}
 }

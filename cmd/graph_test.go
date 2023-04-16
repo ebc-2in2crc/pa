@@ -67,6 +67,10 @@ func (p *pixelaGraphMock) Stopwatch(input *pixela.GraphStopwatchInput) (*pixela.
 	return &p.result, p.err
 }
 
+func (p *pixelaGraphMock) Add(input *pixela.GraphAddInput) (*pixela.Result, error) {
+	return &p.result, p.err
+}
+
 func TestGraphCreateInput(t *testing.T) {
 	params := []struct {
 		commandline string
@@ -933,5 +937,37 @@ func TestGraphStopwatch(t *testing.T) {
 		} else {
 			assert.Contains(t, err.Error(), v.expected)
 		}
+	}
+}
+
+func TestGraphAddInput(t *testing.T) {
+	params := []struct {
+		commandline string
+		expected    pixela.GraphAddInput
+	}{
+		{
+			commandline: "graph add --id=graph-id --quantity=1",
+			expected: pixela.GraphAddInput{
+				ID:       pixela.String("graph-id"),
+				Quantity: pixela.String("1"),
+			},
+		},
+		{
+			commandline: "graph add",
+			expected:    pixela.GraphAddInput{},
+		},
+	}
+
+	for _, p := range params {
+		cmd := NewCmdRoot()
+		cmd.SetOut(io.Discard)
+		args := strings.Split(p.commandline, " ")
+		cmd.SetArgs(args)
+		_ = cmd.Execute()
+
+		input := createGraphAddInput()
+
+		assert.EqualValues(t, pixela.StringValue(p.expected.ID), pixela.StringValue(input.ID), "GraphID")
+		assert.EqualValues(t, pixela.StringValue(p.expected.Quantity), pixela.StringValue(input.Quantity), "Quantity")
 	}
 }

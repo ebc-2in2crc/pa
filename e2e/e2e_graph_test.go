@@ -80,6 +80,20 @@ func testE2EGraphUpdate(t *testing.T) {
 	}
 }
 
+func testE2EGraphAdd(t *testing.T) {
+	cmd := cmd.NewCmdRoot()
+	cmd.SetOut(io.Discard)
+	commandline := "graph add --id=graph-id --quantity=1"
+	args := strings.Split(commandline, " ")
+	cmd.SetArgs(args)
+
+	err := cmd.Execute()
+
+	if err != nil {
+		t.Errorf("graph update got: %+v\nwant: nil", err)
+	}
+}
+
 func testE2EGraphGetPixelDates(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
 	cmd.SetOut(io.Discard)
