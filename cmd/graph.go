@@ -52,6 +52,7 @@ func NewCmdGraph() *cobra.Command {
 	cmd.AddCommand(NewCmdGraphGetPixelDates())
 	cmd.AddCommand(NewCmdGraphStopwatch())
 	cmd.AddCommand(NewCmdGraphAdd())
+	cmd.AddCommand(NewCmdGraphSubtract())
 
 	return cmd
 }
@@ -617,6 +618,44 @@ func NewCmdGraphAdd() *cobra.Command {
 
 func createGraphAddInput() *pixela.GraphAddInput {
 	return &pixela.GraphAddInput{
+		ID:       getStringPtr(graphOptions.ID),
+		Quantity: getStringPtr(graphOptions.Quantity),
+	}
+}
+
+// NewCmdGraphSubtract creates a add graph command.
+func NewCmdGraphSubtract() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "subtract",
+		Short: "Subtract quantity from the Pixel of the day",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			input := createGraphSubtractInput()
+			result, err := pixelaClient.Graph().Subtract(input)
+			if err != nil {
+				return fmt.Errorf("graph subtract failed: %w", err)
+			}
+			s, err := marshalResult(result)
+			if err != nil {
+				return fmt.Errorf("marshal graph subtract result failed: %w", err)
+			}
+			cmd.Printf("%s\n", s)
+
+			if !result.IsSuccess {
+				return ErrNeglect
+			}
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
+	cmd.Flags().StringVar(&graphOptions.Quantity, "quantity", "", "The quantity to be subtracted from the pixel of the day")
+
+	return cmd
+}
+
+func createGraphSubtractInput() *pixela.GraphSubtractInput {
+	return &pixela.GraphSubtractInput{
 		ID:       getStringPtr(graphOptions.ID),
 		Quantity: getStringPtr(graphOptions.Quantity),
 	}

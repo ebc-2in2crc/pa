@@ -106,6 +106,7 @@ Graph API sub commands.
 - pixels
 - stats
 - stopwatch
+- subtract
 - svg
 - update
 
