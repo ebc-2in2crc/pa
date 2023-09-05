@@ -42,6 +42,8 @@ github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZm
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
 github.com/ebc-2in2crc/pixela4go v1.7.1 h1:+Pr19RAV4o0vDMheR2F9/MZpBGcBad+h7YvBLQeumg0=
 github.com/ebc-2in2crc/pixela4go v1.7.1/go.mod h1:X3PKvvz23MB4Wt2A4zYdNyB8L/VjF6O1CBnjkj3zvco=
+github.com/ebc-2in2crc/pixela4go v1.8.0 h1:OoajflK2W7KuFNC6c87UJqJLzFtUsDzkRPLUlLz28ro=
+github.com/ebc-2in2crc/pixela4go v1.8.0/go.mod h1:X3PKvvz23MB4Wt2A4zYdNyB8L/VjF6O1CBnjkj3zvco=
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/fsnotify/fsnotify v1.4.9 h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=
