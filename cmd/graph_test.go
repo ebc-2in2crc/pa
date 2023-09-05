@@ -500,16 +500,19 @@ func TestGraphStats(t *testing.T) {
 					IsSuccess:  true,
 					StatusCode: http.StatusOK,
 				},
-				TotalPixelsCount: 1,
-				MaxQuantity:      2,
-				MinQuantity:      3,
-				TotalQuantity:    4,
-				AvgQuantity:      5,
-				TodaysQuantity:   6,
+				TotalPixelsCount:  1,
+				MaxQuantity:       2,
+				MaxDate:           "2023-09-01",
+				MinQuantity:       3,
+				MinDate:           "2023-09-02",
+				TotalQuantity:     4,
+				AvgQuantity:       5,
+				TodaysQuantity:    6,
+				YesterdayQuantity: 66,
 			},
 			occur: nil,
-			expected: `{"totalPixelsCount":1,"maxQuantity":2,"minQuantity":3,"totalQuantity":4,` +
-				`"avgQuantity":5,"todaysQuantity":6}` + "\n",
+			expected: `{"totalPixelsCount":1,"maxQuantity":2,"maxDate":"2023-09-01","minQuantity":3,"minDate":"2023-09-02","totalQuantity":4,` +
+				`"avgQuantity":5,"todaysQuantity":6,"yesterdayQuantity":66}` + "\n",
 		},
 		{
 			stats: pixela.Stats{

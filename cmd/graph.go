@@ -313,12 +313,15 @@ func NewCmdGraphStats() *cobra.Command {
 			}
 
 			b, err := json.Marshal(&graphStats{
-				TotalPixelsCount: stats.TotalPixelsCount,
-				MaxQuantity:      stats.MaxQuantity,
-				MinQuantity:      stats.MinQuantity,
-				TotalQuantity:    stats.TotalQuantity,
-				AvgQuantity:      stats.AvgQuantity,
-				TodaysQuantity:   stats.TodaysQuantity,
+				TotalPixelsCount:  stats.TotalPixelsCount,
+				MaxQuantity:       stats.MaxQuantity,
+				MaxDate:           stats.MaxDate,
+				MinQuantity:       stats.MinQuantity,
+				MinDate:           stats.MinDate,
+				TotalQuantity:     stats.TotalQuantity,
+				AvgQuantity:       stats.AvgQuantity,
+				TodaysQuantity:    stats.TodaysQuantity,
+				YesterdayQuantity: stats.YesterdayQuantity,
 			})
 			if err != nil {
 				return fmt.Errorf("marshal graph stats failed: %w", err)
@@ -342,12 +345,15 @@ func createGraphStatsInput() *pixela.GraphStatsInput {
 }
 
 type graphStats struct {
-	TotalPixelsCount int     `json:"totalPixelsCount"`
-	MaxQuantity      int     `json:"maxQuantity"`
-	MinQuantity      int     `json:"minQuantity"`
-	TotalQuantity    int     `json:"totalQuantity"`
-	AvgQuantity      float64 `json:"avgQuantity"`
-	TodaysQuantity   int     `json:"todaysQuantity"`
+	TotalPixelsCount  int     `json:"totalPixelsCount"`
+	MaxQuantity       int     `json:"maxQuantity"`
+	MaxDate           string  `json:"maxDate"`
+	MinQuantity       int     `json:"minQuantity"`
+	MinDate           string  `json:"minDate"`
+	TotalQuantity     int     `json:"totalQuantity"`
+	AvgQuantity       float64 `json:"avgQuantity"`
+	TodaysQuantity    int     `json:"todaysQuantity"`
+	YesterdayQuantity int     `json:"yesterdayQuantity"`
 }
 
 // NewCmdGraphUpdate creates a update graphs command.
