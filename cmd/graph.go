@@ -30,6 +30,7 @@ var graphOptions = &struct {
 	To                  string
 	WithBody            bool
 	Quantity            string
+	StartOnMonday       bool
 }{}
 
 // NewCmdGraph creates a graph command.
@@ -91,6 +92,7 @@ func NewCmdGraphCreate() *cobra.Command {
 	cmd.Flags().StringVar(&graphOptions.SelfSufficient, "self-sufficient", "", "See: https://docs.pixe.la/entry/post-graph")
 	cmd.Flags().BoolVar(&graphOptions.IsSecret, "secret", false, "The Graph not displayed on the graph list page")
 	cmd.Flags().BoolVar(&graphOptions.PublishOptionalData, "publish-optional-data", false, "Each pixel's optionalData will be added to the generated SVG data")
+	cmd.Flags().BoolVar(&graphOptions.StartOnMonday, "start-on-monday", false, "The week starts on Monday")
 
 	return cmd
 }
@@ -106,6 +108,7 @@ func createGraphCreateInput() *pixela.GraphCreateInput {
 		SelfSufficient:      getStringPtr(graphOptions.SelfSufficient),
 		IsSecret:            getBoolPtr(graphOptions.IsSecret),
 		PublishOptionalData: getBoolPtr(graphOptions.PublishOptionalData),
+		StartOnMonday:       getBoolPtr(graphOptions.StartOnMonday),
 	}
 }
 
@@ -393,6 +396,7 @@ func NewCmdGraphUpdate() *cobra.Command {
 	cmd.Flags().BoolVar(&graphOptions.IsPublish, "publish", false, "The Graph displayed on the graph list page")
 	cmd.Flags().BoolVar(&graphOptions.PublishOptionalData, "publish-optional-data", false, "Each pixel's optionalData will be added to the generated SVG data")
 	cmd.Flags().BoolVar(&graphOptions.HideOptionalData, "hide-optional-data", false, "Each pixel's optionalData will not be added to the generated SVG data")
+	cmd.Flags().BoolVar(&graphOptions.StartOnMonday, "start-on-monday", false, "The week starts on Monday")
 
 	return cmd
 }
@@ -413,6 +417,10 @@ func createGraphUpdateInput() *pixela.GraphUpdateInput {
 	if graphOptions.HideOptionalData {
 		publishOptionalData = pixela.Bool(false)
 	}
+	var startOnMonday *bool
+	if graphOptions.StartOnMonday {
+		startOnMonday = pixela.Bool(true)
+	}
 
 	return &pixela.GraphUpdateInput{
 		ID:                  getStringPtr(graphOptions.ID),
@@ -424,6 +432,7 @@ func createGraphUpdateInput() *pixela.GraphUpdateInput {
 		SelfSufficient:      getStringPtr(graphOptions.SelfSufficient),
 		IsSecret:            secret,
 		PublishOptionalData: publishOptionalData,
+		StartOnMonday:       startOnMonday,
 	}
 }
 
