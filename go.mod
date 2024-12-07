@@ -1,6 +1,6 @@
 module github.com/ebc-2in2crc/pa
 
-go 1.18
+go 1.23
 
 require (
 	github.com/ebc-2in2crc/pixela4go v1.10.0
