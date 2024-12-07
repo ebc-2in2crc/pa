@@ -82,7 +82,7 @@ func TestGraphCreateInput(t *testing.T) {
 	}{
 		{
 			commandline: "graph create --id=graph-id --name=graph-name --unit=times --type=int --color=sora" +
-				" --timezone=Asia/Tokyo --self-sufficient=none --secret --publish-optional-data",
+				" --timezone=Asia/Tokyo --self-sufficient=none --secret --publish-optional-data --start-on-monday",
 			expected: pixela.GraphCreateInput{
 				ID:                  pixela.String("graph-id"),
 				Name:                pixela.String("graph-name"),
@@ -93,6 +93,7 @@ func TestGraphCreateInput(t *testing.T) {
 				SelfSufficient:      pixela.String("none"),
 				IsSecret:            pixela.Bool(true),
 				PublishOptionalData: pixela.Bool(true),
+				StartOnMonday:       pixela.Bool(true),
 			},
 		},
 		{
@@ -119,6 +120,7 @@ func TestGraphCreateInput(t *testing.T) {
 		assert.EqualValues(t, pixela.StringValue(p.expected.SelfSufficient), pixela.StringValue(input.SelfSufficient), "SelfSufficient")
 		assert.EqualValues(t, pixela.BoolValue(p.expected.IsSecret), pixela.BoolValue(input.IsSecret), "IsSecret")
 		assert.EqualValues(t, pixela.BoolValue(p.expected.PublishOptionalData), pixela.BoolValue(input.PublishOptionalData), "PublishOptionalData")
+		assert.EqualValues(t, pixela.BoolValue(p.expected.StartOnMonday), pixela.BoolValue(input.StartOnMonday), "StartOnMonday")
 	}
 }
 
@@ -558,7 +560,7 @@ func TestGraphUpdateInput(t *testing.T) {
 	}{
 		{
 			commandline: "graph update --id=graph-id --name=graph-name --unit=times --color=sora" +
-				" --timezone=Asia/Tokyo --purge-cache-urls=url --self-sufficient=none --secret --publish-optional-data",
+				" --timezone=Asia/Tokyo --purge-cache-urls=url --self-sufficient=none --secret --publish-optional-data --start-on-monday",
 			expected: pixela.GraphUpdateInput{
 				ID:                  pixela.String("graph-id"),
 				Name:                pixela.String("graph-name"),
@@ -569,6 +571,7 @@ func TestGraphUpdateInput(t *testing.T) {
 				SelfSufficient:      pixela.String("none"),
 				IsSecret:            pixela.Bool(true),
 				PublishOptionalData: pixela.Bool(true),
+				StartOnMonday:       pixela.Bool(true),
 			},
 		},
 		{
@@ -617,6 +620,12 @@ func TestGraphUpdateInput(t *testing.T) {
 		} else {
 			assert.NotNil(t, input.PublishOptionalData, "PublishOptionalData")
 			assert.EqualValues(t, pixela.BoolValue(p.expected.PublishOptionalData), pixela.BoolValue(input.PublishOptionalData), "PublishOptionalData")
+		}
+		if p.expected.StartOnMonday == nil {
+			assert.Nil(t, input.StartOnMonday, "StartOnMonday")
+		} else {
+			assert.NotNil(t, input.StartOnMonday, "StartOnMonday")
+			assert.EqualValues(t, pixela.BoolValue(p.expected.StartOnMonday), pixela.BoolValue(input.StartOnMonday), "StartOnMonday")
 		}
 	}
 }
