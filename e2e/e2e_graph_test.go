@@ -122,6 +122,20 @@ func testE2EGraphGetPixelDates(t *testing.T) {
 	}
 }
 
+func testE2EGraphGetLatestPixel(t *testing.T) {
+	cmd := cmd.NewCmdRoot()
+	cmd.SetOut(io.Discard)
+	commandline := "graph get-latest-pixel --id=graph-id"
+	args := strings.Split(commandline, " ")
+	cmd.SetArgs(args)
+
+	err := cmd.Execute()
+
+	if err != nil {
+		t.Errorf("graph latest pixel got: %+v\nwant: nil", err)
+	}
+}
+
 func testE2EGraphStopwatch(t *testing.T) {
 	cmd := cmd.NewCmdRoot()
 	cmd.SetOut(io.Discard)

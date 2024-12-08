@@ -18,6 +18,7 @@ type pixelaGraphMock struct {
 	err         error
 	svg         string
 	stats       pixela.Stats
+	pixel       pixela.PixelWithBody
 	pixels      pixela.Pixels
 	definitions pixela.GraphDefinitions
 	definition  pixela.GraphDefinition
@@ -73,6 +74,16 @@ func (p *pixelaGraphMock) Add(input *pixela.GraphAddInput) (*pixela.Result, erro
 
 func (p *pixelaGraphMock) Subtract(input *pixela.GraphSubtractInput) (*pixela.Result, error) {
 	return &p.result, p.err
+}
+
+func (p *pixelaGraphMock) GetLatestPixel(input *pixela.GraphGetLatestPixelInput) (*pixela.GraphPixel, error) {
+	result := &pixela.GraphPixel{
+		Date:         p.pixel.Date,
+		Quantity:     p.pixel.Quantity,
+		OptionalData: p.pixel.OptionalData,
+		Result:       p.result,
+	}
+	return result, p.err
 }
 
 func TestGraphCreateInput(t *testing.T) {
@@ -1091,6 +1102,76 @@ func TestGraphSubtract(t *testing.T) {
 			err:    v.occur,
 		}
 		c := NewCmdGraphSubtract()
+		buffer := bytes.NewBuffer([]byte{})
+		c.SetOut(buffer)
+
+		err := c.RunE(c, []string{})
+
+		if v.occur == nil {
+			assert.Equal(t, v.expected, buffer.String())
+		} else {
+			assert.Contains(t, err.Error(), v.expected)
+		}
+	}
+}
+
+func TestGraphGetLatestPixelInput(t *testing.T) {
+	params := []struct {
+		commandline string
+		expected    pixela.GraphGetLatestPixelInput
+	}{
+		{
+			commandline: "graph get-latest-pixel --id=graph-id",
+			expected: pixela.GraphGetLatestPixelInput{
+				ID: pixela.String("graph-id"),
+			},
+		},
+	}
+
+	for _, p := range params {
+		cmd := NewCmdRoot()
+		cmd.SetOut(io.Discard)
+		args := strings.Split(p.commandline, " ")
+		cmd.SetArgs(args)
+		_ = cmd.Execute()
+
+		input := createGraphCreateInput()
+
+		assert.EqualValues(t, pixela.StringValue(p.expected.ID), pixela.StringValue(input.ID), "GraphID")
+	}
+}
+
+func TestGraphGetLatestPixel(t *testing.T) {
+	defer func() { pixelaClient.graph = nil }()
+	params := []struct {
+		result   pixela.Result
+		pixel    pixela.PixelWithBody
+		occur    error
+		expected string
+	}{
+		{
+			result: pixela.Result{
+				Message:    "Success.",
+				IsSuccess:  true,
+				StatusCode: http.StatusOK,
+			},
+			pixel: pixela.PixelWithBody{
+				Date:         "20241205",
+				Quantity:     "5",
+				OptionalData: "OD",
+			},
+			occur:    nil,
+			expected: `{"date":"20241205","quantity":"5","optionalData":"OD"}` + "\n",
+		},
+	}
+
+	for _, v := range params {
+		pixelaClient.graph = &pixelaGraphMock{
+			result: v.result,
+			pixel:  v.pixel,
+			err:    v.occur,
+		}
+		c := NewCmdGraphGetLatestPixel()
 		buffer := bytes.NewBuffer([]byte{})
 		c.SetOut(buffer)
 
