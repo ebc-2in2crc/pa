@@ -45,6 +45,7 @@ type pixelaGraph interface {
 	Stopwatch(input *pixela.GraphStopwatchInput) (*pixela.Result, error)
 	Add(input *pixela.GraphAddInput) (*pixela.Result, error)
 	Subtract(input *pixela.GraphSubtractInput) (*pixela.Result, error)
+	GetLatestPixel(input *pixela.GraphGetLatestPixelInput) (*pixela.GraphPixel, error)
 }
 
 type pixelaPixel interface {

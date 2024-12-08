@@ -54,6 +54,7 @@ func NewCmdGraph() *cobra.Command {
 	cmd.AddCommand(NewCmdGraphStopwatch())
 	cmd.AddCommand(NewCmdGraphAdd())
 	cmd.AddCommand(NewCmdGraphSubtract())
+	cmd.AddCommand(NewCmdGraphGetLatestPixel())
 
 	return cmd
 }
@@ -674,4 +675,57 @@ func createGraphSubtractInput() *pixela.GraphSubtractInput {
 		ID:       getStringPtr(graphOptions.ID),
 		Quantity: getStringPtr(graphOptions.Quantity),
 	}
+}
+
+// NewCmdGraphGetLatestPixel creates a get latest pixel command.
+func NewCmdGraphGetLatestPixel() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "get-latest-pixel",
+		Short: "Get the latest Pixel",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			input := createGraphGetLatestPixelInput()
+			pixel, err := pixelaClient.Graph().GetLatestPixel(input)
+			if err != nil {
+				return fmt.Errorf("graph get latest pixel failed: %w", err)
+			}
+			if !pixel.IsSuccess {
+				s, err := marshalResult(&pixel.Result)
+				if err != nil {
+					return fmt.Errorf("marshal graph get latest pixel result failed: %w", err)
+				}
+				cmd.Printf("%s\n", s)
+				return ErrNeglect
+			}
+
+			b, err := json.Marshal(&graphPixel{
+				Date:         pixel.Date,
+				Quantity:     pixel.Quantity,
+				OptionalData: pixel.OptionalData,
+			})
+			if err != nil {
+				return fmt.Errorf("marshal pixel get failed: %w", err)
+			}
+			cmd.Printf("%s\n", string(b))
+
+			return nil
+		},
+	}
+
+	cmd.Flags().StringVar(&graphOptions.ID, "id", "", "ID for identifying the pixelation graph")
+	_ = cmd.MarkFlagRequired("id")
+
+	return cmd
+}
+
+func createGraphGetLatestPixelInput() *pixela.GraphGetLatestPixelInput {
+	return &pixela.GraphGetLatestPixelInput{
+		ID: getStringPtr(graphOptions.ID),
+	}
+}
+
+type graphPixel struct {
+	Date         string `json:"date"`
+	Quantity     string `json:"quantity"`
+	OptionalData string `json:"optionalData"`
 }
